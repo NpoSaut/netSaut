@@ -1,0 +1,3 @@
+[submodule "Geographics"]
+	path = Geographics
+	url = https://github.com/NpoSaut/netGeographicsLib.git

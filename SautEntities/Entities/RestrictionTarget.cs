@@ -4,13 +4,12 @@ namespace Saut.Entities
 {
     /// <summary>Положение ограничения</summary>
     /// <remarks>Информация о предстоящем ограничении скорости</remarks>
-    public class RestrictionPoint
+    public class RestrictionTarget
     {
-        /// <summary>
-        /// Инициализирует новый экземпляр класса <see cref="T:System.Object"/>.
-        /// </summary>
-        public RestrictionPoint(double Disstance)
+        public RestrictionTarget(double Disstance, double Speed, double Length = 0)
         {
+            this.Length = Length;
+            this.Speed = Speed;
             this.Disstance = Disstance;
         }
 
