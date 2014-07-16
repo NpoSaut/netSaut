@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Modules.Boot
 {
-    internal class ModuleInformation
+    public class ModuleInformation
     {
         public ModuleInformation(IModule Module, IList<Type> Dependencies, IList<Type> Provides)
         {
@@ -17,7 +17,7 @@ namespace Modules.Boot
         public IList<Type> Provides { get; private set; }
     }
 
-    internal class ModuleInformationFactory
+    public class ModuleInformationFactory
     {
         private readonly IDependencyProvider _dependencyProvider;
         public ModuleInformationFactory(IDependencyProvider DependencyProvider) { _dependencyProvider = DependencyProvider; }

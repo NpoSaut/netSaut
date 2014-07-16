@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Modules.Boot
 {
-    internal interface IDependenciesResolver
+    public interface IDependenciesResolver
     {
         /// <summary>Определяет порядок инициализации модулей в соответствии с их зависимостями</summary>
         /// <param name="Modules">Список модулей для инициализации</param>
@@ -13,7 +13,7 @@ namespace Modules.Boot
     }
 
     /// <summary>Класс, занимающийся разрешением последовательности инициализации модулей</summary>
-    internal class DependenciesResolver : IDependenciesResolver
+    public class DependenciesResolver : IDependenciesResolver
     {
         private readonly ModuleInformationFactory _moduleInformationFactory;
 
