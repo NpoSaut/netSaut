@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Modules.Boot
+namespace Modules
 {
     /// <Summary>Исключения процесса загрузки</Summary>
     [Serializable]

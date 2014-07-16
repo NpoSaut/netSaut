@@ -48,12 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Boot\BootstrapperBase.cs" />
-    <Compile Include="Boot\AttributeDependencyProvider.cs" />
-    <Compile Include="Boot\BootstrapperException.cs" />
-    <Compile Include="Boot\DependenciesResolver.cs" />
-    <Compile Include="Boot\ModuleInformation.cs" />
-    <Compile Include="Boot\UnresolvableDependenciesException.cs" />
+    <Compile Include="BootstrapperBase.cs" />
+    <Compile Include="Dependencies\AttributeDependencyProvider.cs" />
+    <Compile Include="Exceptions\BootstrapperException.cs" />
+    <Compile Include="Dependencies\DependenciesResolver.cs" />
+    <Compile Include="Dependencies\IDependenciesResolver.cs" />
+    <Compile Include="Dependencies\ModuleInformation.cs" />
+    <Compile Include="Exceptions\UnresolvableDependenciesException.cs" />
     <Compile Include="Dependencies\DependOnAttribute.cs" />
     <Compile Include="Dependencies\ProvidesAttribute.cs" />
     <Compile Include="IModule.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Modules.Boot
+namespace Modules.Dependencies
 {
     public class ModuleInformation
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity;
+using Modules.Dependencies;
 
-namespace Modules.Boot
+namespace Modules
 {
     public abstract class BootstrapperBase
     {
