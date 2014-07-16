@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributeDependencyProviderTest.cs" />
     <Compile Include="DependenciesResolverTest.cs" />
+    <Compile Include="ModuleInformationFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

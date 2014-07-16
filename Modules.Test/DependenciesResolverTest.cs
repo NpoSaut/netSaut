@@ -28,7 +28,7 @@ namespace Modules.Test
         [Provides(typeof (IService1))]
         private class ModuleP1 : ModuleBase { }
 
-        [Provides(typeof(IService2))]
+        [Provides(typeof (IService2))]
         private class ModuleP2 : ModuleBase { }
 
         [DependOn(typeof (IService1))]
@@ -39,7 +39,7 @@ namespace Modules.Test
         [Provides(typeof (IService1))]
         private class ModuleD2P1 : ModuleBase { }
 
-        [DependOn(typeof(IService2))]
+        [DependOn(typeof (IService2))]
         private class ModuleD2 : ModuleBase { }
 
         private readonly DependenciesResolver _resolver;
@@ -58,9 +58,12 @@ namespace Modules.Test
             List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
         }
 
-        /// <summary>Проверяет, все ли экземпляры сервиса были инициализированы перед инициализацией модуля-потребителя</summary>
+        /// <summary>
+        ///     Проверяет, были ли инициализированы оба провайдера сервиса инициализированы перед инициализацией
+        ///     модуля-потребителя
+        /// </summary>
         [Test]
-        public void InstanceAllOfServicesTest()
+        public void MultipleProvidersTest()
         {
             var modules = new IModule[] { new ModuleD1(), new ModuleP1(), new ModuleP1() };
             List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
@@ -83,16 +86,6 @@ namespace Modules.Test
         }
 
         [Test]
-        public void SimpleDependencyTest()
-        {
-            var modules = new IModule[] { new ModuleD1(), new ModuleP1() };
-            List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
-            Assert.AreEqual(2, resolvedModules.Count, "Потеряли модуль в процессе разрешения зависимостей");
-            Assert.IsInstanceOf<ModuleP1>(resolvedModules[0]);
-            Assert.IsInstanceOf<ModuleD1>(resolvedModules[1]);
-        }
-
-        [Test]
         public void SequentialDependency()
         {
             var modules = new IModule[] { new ModuleD2(), new ModuleP2(), new ModuleP1(), new ModuleD1P2() };
@@ -106,6 +99,16 @@ namespace Modules.Test
             Assert.LessOrEqual(indexP2, indexD2);
             Assert.LessOrEqual(indexD1P2, indexD2);
             Assert.LessOrEqual(indexP1, indexD1P2);
+        }
+
+        [Test]
+        public void SimpleDependencyTest()
+        {
+            var modules = new IModule[] { new ModuleD1(), new ModuleP1() };
+            List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
+            Assert.AreEqual(2, resolvedModules.Count, "Потеряли модуль в процессе разрешения зависимостей");
+            Assert.IsInstanceOf<ModuleP1>(resolvedModules[0]);
+            Assert.IsInstanceOf<ModuleD1>(resolvedModules[1]);
         }
     }
 }
