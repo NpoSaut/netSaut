@@ -1,7 +1,7 @@
 ﻿using System;
 using Saut.Navigation.Interfaces.Elements;
 
-namespace Saut.Navigation.Interfaces.Positioning
+namespace Saut.Navigation.Entities
 {
     /// <summary>Объект, расположенный на маршруте</summary>
     public class RoutePoint

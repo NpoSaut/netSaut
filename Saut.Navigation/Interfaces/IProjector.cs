@@ -1,4 +1,5 @@
 ﻿using System;
+using Saut.Navigation.Entities;
 
 namespace Saut.Navigation.Interfaces
 {

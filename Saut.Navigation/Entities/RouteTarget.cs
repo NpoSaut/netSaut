@@ -1,7 +1,7 @@
 ﻿using System;
 using Saut.Navigation.Interfaces.Elements;
 
-namespace Saut.Navigation.Interfaces.Targeting
+namespace Saut.Navigation.Entities
 {
     public class RouteTarget
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Saut.Navigation.Entities;
 using Saut.Navigation.Interfaces;
-using Saut.Navigation.Interfaces.Targeting;
 
 namespace Saut.Navigation
 {

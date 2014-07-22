@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Saut.Navigation.Interfaces.Positioning;
+using Saut.Navigation.Entities;
 
 namespace Saut.Navigation.Interfaces
 {

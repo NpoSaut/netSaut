@@ -1,6 +1,7 @@
 ﻿using System;
+using Saut.Navigation.Interfaces;
 
-namespace Saut.Navigation.Interfaces
+namespace Saut.Navigation.Entities
 {
     /// <summary>Проекция маршрута на глобальную координату</summary>
     public class RouteProjection

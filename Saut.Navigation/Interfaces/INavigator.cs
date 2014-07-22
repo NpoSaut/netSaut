@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Saut.Navigation.Interfaces.Targeting;
+using Saut.Navigation.Entities;
 
 namespace Saut.Navigation.Interfaces
 {
