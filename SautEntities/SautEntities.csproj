@@ -42,6 +42,12 @@
     <Compile Include="Entities\RailwayOrdinate.cs" />
     <Compile Include="Entities\RestrictionLayer.cs" />
     <Compile Include="Entities\RestrictionTarget.cs" />
+    <Compile Include="EventServices\Event.cs" />
+    <Compile Include="EventServices\IEventConsumer.cs" />
+    <Compile Include="EventServices\IEventExpector.cs" />
+    <Compile Include="EventServices\IEventListener.cs" />
+    <Compile Include="EventServices\IEventAggregator.cs" />
+    <Compile Include="IEventManager.cs" />
     <Compile Include="Interfaces\ICurve.cs" />
     <Compile Include="Interfaces\ICurveAggregator.cs" />
     <Compile Include="Interfaces\ICurveCalculator.cs" />
