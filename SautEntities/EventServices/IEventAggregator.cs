@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Saut.EventServices
 {
-    /// <summary>Менеджер событий</summary>
+    /// <summary>Агрегатор событий</summary>
     public interface IEventAggregator
     {
         /// <summary>Уведомляет о наступлении событие</summary>
@@ -11,7 +11,7 @@ namespace Saut.EventServices
         void RaiseEvent(Event NewEvent);
 
         IEventListener<TEvent> GetEventListener<TEvent>() where TEvent : Event;
-        IEventExpector<TEvent> GetEventExpector<TEvent>() where TEvent : Event;
+        IEventExpectant<TEvent> GetEventExpector<TEvent>() where TEvent : Event;
     }
 
     public class EventConsumer : IDisposable
@@ -25,7 +25,7 @@ namespace Saut.EventServices
         {
             _aggregator = Aggregator;
             (_listener = Aggregator.GetEventListener<MyEvent>()).EventRaised += OnEventRaised;
-            Aggregator.GetEventExpector<MyEvent>().Expect();
+            Aggregator.GetEventExpector<MyEvent>().ExpectAsync();
             Aggregator.RaiseEvent(new MyEvent("loh"));
         }
 
@@ -33,7 +33,7 @@ namespace Saut.EventServices
         {
             using (var expector = _aggregator.GetEventExpector<MyEvent>())
             {
-                var xx = expector.Expect();
+                var xx = expector.ExpectAsync();
                 var ev = await xx;
             }
         }
