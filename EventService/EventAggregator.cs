@@ -32,7 +32,7 @@ namespace EventService
             return listener;
         }
 
-        public IEventExpectant<TEvent> GetEventExpector<TEvent>() where TEvent : Event
+        public IEventExpectant<TEvent> GetEventExpectant<TEvent>() where TEvent : Event
         {
             IConsumableEventExpectant<TEvent> expectant = _expectantFactory.GetEventExpectant<TEvent>();
             _consumers.RegisterConsumer<TEvent>(expectant);

@@ -43,6 +43,7 @@
     <Compile Include="Entities\RestrictionLayer.cs" />
     <Compile Include="Entities\RestrictionTarget.cs" />
     <Compile Include="EventServices\Event.cs" />
+    <Compile Include="EventServices\EventAggregatorExpectantsHelper.cs" />
     <Compile Include="EventServices\IEventConsumer.cs" />
     <Compile Include="EventServices\IEventExpectant.cs" />
     <Compile Include="EventServices\IEventListener.cs" />

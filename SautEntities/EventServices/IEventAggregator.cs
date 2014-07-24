@@ -11,7 +11,7 @@ namespace Saut.EventServices
         void RaiseEvent(Event NewEvent);
 
         IEventListener<TEvent> GetEventListener<TEvent>() where TEvent : Event;
-        IEventExpectant<TEvent> GetEventExpector<TEvent>() where TEvent : Event;
+        IEventExpectant<TEvent> GetEventExpectant<TEvent>() where TEvent : Event;
     }
 
     public class EventConsumer : IDisposable
@@ -25,20 +25,22 @@ namespace Saut.EventServices
         {
             _aggregator = Aggregator;
             (_listener = Aggregator.GetEventListener<MyEvent>()).EventRaised += OnEventRaised;
-            Aggregator.GetEventExpector<MyEvent>().Expect();
+            Aggregator.GetEventExpectant<MyEvent>().Expect();
             Aggregator.RaiseEvent(new MyEvent("loh"));
         }
 
+        public void Dispose() { _listener.Dispose(); }
+
         public async void ghovnar()
         {
-            using (var expector = _aggregator.GetEventExpector<MyEvent>())
+            var evx = _aggregator.ExpectEvent<Event>();
+
+            using (IEventExpectant<MyEvent> expector = _aggregator.GetEventExpectant<MyEvent>())
             {
-                var xx = expector.ExpectAsync();
-                var ev = await xx;
+                Task<MyEvent> xx = expector.ExpectAsync();
+                MyEvent ev = await xx;
             }
         }
-
-        public void Dispose() { _listener.Dispose(); }
 
         private void OnEventRaised(object Sender, EventRaisedArgs<MyEvent> EventRaisedArgs) { }
 
