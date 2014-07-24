@@ -48,6 +48,8 @@
     <Compile Include="EventServices\IEventExpectant.cs" />
     <Compile Include="EventServices\IEventListener.cs" />
     <Compile Include="EventServices\IEventAggregator.cs" />
+    <Compile Include="FrameProcessing\IFrameProcessingService.cs" />
+    <Compile Include="FrameProcessing\IFrameProcessor.cs" />
     <Compile Include="IEventManager.cs" />
     <Compile Include="Interfaces\ICurve.cs" />
     <Compile Include="Interfaces\ICurveAggregator.cs" />
@@ -60,6 +62,12 @@
     <Compile Include="Interfaces\IRelief.cs" />
     <Compile Include="Interfaces\IRestrictionPointsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CanLib\BlokFrames\BlokFrames.csproj">
+      <Project>{405B0F26-46EE-4D8C-9267-652F7D4C4AB0}</Project>
+      <Name>BlokFrames</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

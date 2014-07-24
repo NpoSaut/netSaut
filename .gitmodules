@@ -1,3 +1,6 @@
 [submodule "Geographics"]
 	path = Geographics
 	url = https://github.com/NpoSaut/netGeographicsLib.git
+[submodule "CanLib"]
+	path = CanLib
+	url = ../netCanLib.git
