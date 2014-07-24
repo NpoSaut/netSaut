@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8B1003A6-A249-47E3-AD60-5318185701C8}</ProjectGuid>
+    <ProjectGuid>{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Saut</RootNamespace>
-    <AssemblyName>SautEnteties</AssemblyName>
+    <RootNamespace>EventService</RootNamespace>
+    <AssemblyName>EventService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,27 +48,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\RailwayOrdinate.cs" />
-    <Compile Include="Entities\RestrictionLayer.cs" />
-    <Compile Include="Entities\RestrictionTarget.cs" />
-    <Compile Include="EventServices\Event.cs" />
-    <Compile Include="EventServices\EventAggregatorExpectantsHelper.cs" />
-    <Compile Include="EventServices\IEventConsumer.cs" />
-    <Compile Include="EventServices\IEventExpectant.cs" />
-    <Compile Include="EventServices\IEventListener.cs" />
-    <Compile Include="EventServices\IEventAggregator.cs" />
-    <Compile Include="IEventManager.cs" />
-    <Compile Include="Interfaces\ICurve.cs" />
-    <Compile Include="Interfaces\ICurveAggregator.cs" />
-    <Compile Include="Interfaces\ICurveCalculator.cs" />
-    <Compile Include="Interfaces\ICurveComposer.cs" />
-    <Compile Include="Interfaces\ICurveModifier.cs" />
-    <Compile Include="Interfaces\ICurveProvider.cs" />
-    <Compile Include="Interfaces\ICurvingService.cs" />
-    <Compile Include="Interfaces\IModifiersService.cs" />
-    <Compile Include="Interfaces\IRelief.cs" />
-    <Compile Include="Interfaces\IRestrictionPointsProvider.cs" />
+    <Compile Include="ConcurrentEventExpectant.cs" />
+    <Compile Include="EventAggregator.cs" />
+    <Compile Include="DirectEventListener.cs" />
+    <Compile Include="Interfaces\IConsumableEventExpectant.cs" />
+    <Compile Include="Interfaces\IConsumableEventListener.cs" />
+    <Compile Include="Interfaces\IConsumersContainer.cs" />
+    <Compile Include="Interfaces\IEventExpectantFactory.cs" />
+    <Compile Include="Interfaces\IEventListenerFactory.cs" />
+    <Compile Include="Interfaces\InterlockedConsumersContainerDecorator.cs" />
+    <Compile Include="ConsumerContainers\ListConsumersContainer.cs" />
+    <Compile Include="ConsumerContainers\ListConsumersContainerBase.cs" />
+    <Compile Include="ConsumerContainers\LockFreeListConsumersContainer.cs" />
+    <Compile Include="Modules\EventServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Modules.csproj">
+      <Project>{D6DB682E-8412-40FA-8E48-524B3B48FA37}</Project>
+      <Name>Modules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SautEntities\SautEntities.csproj">
+      <Project>{8B1003A6-A249-47E3-AD60-5318185701C8}</Project>
+      <Name>SautEntities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,9 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.Navigation", "Saut.Navigation\Saut.Navigation.csproj", "{19626A83-8BD6-45EE-9391-97542EC1104B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Geographics", "Geographics\Geographics.csproj", "{4EAF91DF-7A6C-4F0E-B15B-F372CE42C8D0}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules", "Modules\Modules.csproj", "{D6DB682E-8412-40FA-8E48-524B3B48FA37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Test", "Modules.Test\Modules.Test.csproj", "{EC28490C-DE4C-4BB3-AAE8-D5F9408A6CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventService", "EventService\EventService.csproj", "{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +53,10 @@ Global
 		{EC28490C-DE4C-4BB3-AAE8-D5F9408A6CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC28490C-DE4C-4BB3-AAE8-D5F9408A6CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC28490C-DE4C-4BB3-AAE8-D5F9408A6CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FAE2F4E-2BFE-4E91-AEF5-6C53DD139110}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
