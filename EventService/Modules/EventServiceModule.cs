@@ -1,4 +1,4 @@
-﻿using System;
+﻿using EventService.ConsumerContainers;
 using EventService.Interfaces;
 using Microsoft.Practices.Unity;
 using Modules;
@@ -17,6 +17,8 @@ namespace EventService.Modules
         {
             Container.RegisterType<IEventExpectantFactory, ConcurrentEventExpectantFactory>();
             Container.RegisterType<IEventListenerFactory, DirectEventListenerFactory>();
+
+            Container.RegisterType<IConsumersContainer, LockFreeListConsumersContainer>();
             Container.RegisterType<IEventAggregator, EventAggregator>();
         }
 

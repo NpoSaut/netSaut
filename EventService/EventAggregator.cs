@@ -19,19 +19,23 @@ namespace EventService
 
         /// <summary>Уведомляет о наступлении событие</summary>
         /// <param name="NewEvent">Наступившее событие</param>
-        public void RaiseEvent(Event NewEvent) { }
+        public void RaiseEvent(Event NewEvent)
+        {
+            foreach (IEventConsumer consumer in _consumers.Of(NewEvent.GetType()))
+                consumer.ProcessEvent(NewEvent);
+        }
 
         public IEventListener<TEvent> GetEventListener<TEvent>() where TEvent : Event
         {
             IConsumableEventListener<TEvent> listener = _listenerFactory.GetEventListener<TEvent>();
-            _consumers.RegisterConsumer(listener);
+            _consumers.RegisterConsumer<TEvent>(listener);
             return listener;
         }
 
         public IEventExpectant<TEvent> GetEventExpector<TEvent>() where TEvent : Event
         {
             IConsumableEventExpectant<TEvent> expectant = _expectantFactory.GetEventExpectant<TEvent>();
-            _consumers.RegisterConsumer(expectant);
+            _consumers.RegisterConsumer<TEvent>(expectant);
             return expectant;
         }
     }

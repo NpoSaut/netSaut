@@ -56,6 +56,10 @@
     <Compile Include="Interfaces\IConsumersContainer.cs" />
     <Compile Include="Interfaces\IEventExpectantFactory.cs" />
     <Compile Include="Interfaces\IEventListenerFactory.cs" />
+    <Compile Include="Interfaces\InterlockedConsumersContainerDecorator.cs" />
+    <Compile Include="ConsumerContainers\ListConsumersContainer.cs" />
+    <Compile Include="ConsumerContainers\ListConsumersContainerBase.cs" />
+    <Compile Include="ConsumerContainers\LockFreeListConsumersContainer.cs" />
     <Compile Include="Modules\EventServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
