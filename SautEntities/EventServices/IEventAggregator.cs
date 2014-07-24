@@ -25,7 +25,7 @@ namespace Saut.EventServices
         {
             _aggregator = Aggregator;
             (_listener = Aggregator.GetEventListener<MyEvent>()).EventRaised += OnEventRaised;
-            Aggregator.GetEventExpector<MyEvent>().ExpectAsync();
+            Aggregator.GetEventExpector<MyEvent>().Expect();
             Aggregator.RaiseEvent(new MyEvent("loh"));
         }
 
