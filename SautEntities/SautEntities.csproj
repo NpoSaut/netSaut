@@ -48,6 +48,7 @@
     <Compile Include="EventServices\IEventExpectant.cs" />
     <Compile Include="EventServices\IEventListener.cs" />
     <Compile Include="EventServices\IEventAggregator.cs" />
+    <Compile Include="FrameProcessing\FrameProcessorBase.cs" />
     <Compile Include="FrameProcessing\IFrameProcessingService.cs" />
     <Compile Include="FrameProcessing\IFrameProcessor.cs" />
     <Compile Include="IEventManager.cs" />

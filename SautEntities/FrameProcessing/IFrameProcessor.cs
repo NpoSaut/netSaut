@@ -1,11 +1,16 @@
-﻿using BlokFrames;
+﻿using System;
+using BlokFrames;
 
 namespace Saut.FrameProcessing
 {
-    public interface IFrameProcessor { }
-
-    public interface IFrameProcessor<TFrame> : IFrameProcessor where TFrame : BlokFrame
+    /// <summary>Обработчик входящих сообщений</summary>
+    public interface IFrameProcessor
     {
-        void ProcessFrame(TFrame Frame);
+        /// <summary>Тип обрабатываемых сообщений</summary>
+        Type FrameType { get; }
+
+        /// <summary>Обрабатывает указанное входящее сообщение</summary>
+        /// <param name="Frame">Входящее сообщение</param>
+        void ProcessFrame(BlokFrame Frame);
     }
 }
