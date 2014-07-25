@@ -25,7 +25,7 @@ namespace Modules.Dependencies
                     uninitializedModules.FirstOrDefault(
                         m =>
                         m.Dependencies.All(d => initializedTypes.Contains(d) &&
-                                                !uninitializedModules.Any(mm => mm.Provides.Intersect(m.Dependencies).Any())));
+                                                !uninitializedModules.Where(mm => mm != m).Any(mm => mm.Provides.Intersect(m.Dependencies).Any())));
 
                 if (moduleForInitialization == null)
                     throw new UnresolvableDependenciesException(uninitializedModules.Select(mi => mi.Module).ToList(), initializedTypes);

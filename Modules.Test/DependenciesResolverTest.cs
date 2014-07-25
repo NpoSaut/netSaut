@@ -39,6 +39,10 @@ namespace Modules.Test
         [Provides(typeof (IService1))]
         private class ModuleD2P1 : ModuleBase { }
 
+        [DependOn(typeof (IService1))]
+        [Provides(typeof (IService1))]
+        private class ModuleD1P1 : ModuleBase { }
+
         [DependOn(typeof (IService2))]
         private class ModuleD2 : ModuleBase { }
 
@@ -83,6 +87,20 @@ namespace Modules.Test
         {
             var modules = new IModule[] { new ModuleD1() };
             List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
+        }
+
+        /// <summary>
+        ///     Проверяет правильность очерёдности вызова модулей в случае, если один из модулей имеет зависимость от класса,
+        ///     порождаемого им самим
+        /// </summary>
+        [Test]
+        public void SelfDependencyTest()
+        {
+            var modules = new IModule[] { new ModuleD1P1(), new ModuleP1() };
+            List<IModule> resolvedModules = _resolver.ResolveInitializationOrder(modules).ToList();
+            Assert.AreEqual(2, resolvedModules.Count, "Потеряли модуль в процессе разрешения зависимостей");
+            Assert.IsInstanceOf<ModuleP1>(resolvedModules[0]);
+            Assert.IsInstanceOf<ModuleD1P1>(resolvedModules[1]);
         }
 
         [Test]
