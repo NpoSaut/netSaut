@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlokFrames", "CanLib\BlokFr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.FrameProcessing", "Saut.FrameProcessing\Saut.FrameProcessing.csproj", "{5DA7AD11-9FB7-4735-94C9-EBE9D9B22DC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.StateModel", "Saut.StateModel\Saut.StateModel.csproj", "{F055239B-2E58-4E1E-9FBF-DC6F7026828A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{5DA7AD11-9FB7-4735-94C9-EBE9D9B22DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DA7AD11-9FB7-4735-94C9-EBE9D9B22DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DA7AD11-9FB7-4735-94C9-EBE9D9B22DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
