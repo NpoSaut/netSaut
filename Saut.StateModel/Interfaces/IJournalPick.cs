@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Saut.StateModel
+namespace Saut.StateModel.Interfaces
 {
     /// <summary>Выборка из журнала.</summary>
     /// <typeparam name="TValue">Тип значений в журнале.</typeparam>

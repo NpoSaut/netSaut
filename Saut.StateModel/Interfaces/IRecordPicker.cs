@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Saut.StateModel
+namespace Saut.StateModel.Interfaces
 {
     /// <summary>
     /// Инструмент по созданию выборок из журнала

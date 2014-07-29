@@ -48,10 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IInterpolator.cs" />
-    <Compile Include="IJournal.cs" />
-    <Compile Include="IJournalPick.cs" />
-    <Compile Include="IRecordPicker.cs" />
+    <Compile Include="Interfaces\IInterpolator.cs" />
+    <Compile Include="Interfaces\IJournal.cs" />
+    <Compile Include="Interfaces\IJournalPick.cs" />
+    <Compile Include="Interfaces\IRecordPicker.cs" />
+    <Compile Include="Interfaces\JournalRecord.cs" />
+    <Compile Include="LinearInterpolator.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateModelService.cs" />
