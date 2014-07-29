@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.FrameProcessing", "Sau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.StateModel", "Saut.StateModel\Saut.StateModel.csproj", "{F055239B-2E58-4E1E-9FBF-DC6F7026828A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.StateModel.Test", "Saut.StateModel.Test\Saut.StateModel.Test.csproj", "{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F055239B-2E58-4E1E-9FBF-DC6F7026828A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
