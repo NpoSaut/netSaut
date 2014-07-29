@@ -1,10 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Saut.StateModel
 {
+    /// <summary>
+    /// Инструмент по созданию выборок из журнала
+    /// </summary>
     public interface IRecordPicker
     {
-        IJournalPick<TValue> Pickrecords<TValue>(IJournal<TValue> Journal, DateTime Time);
+        /// <summary>Создаёт выборку из журнала в окрестности указанного времени.</summary>
+        /// <typeparam name="TValue">Тип значений в журнале.</typeparam>
+        /// <param name="Journal">Журнал, в котором будет выполняться поиск.</param>
+        /// <param name="Time">Время, в окрестности которого нужно сделать выборку.</param>
+        /// <returns>Выборку из журнала в окрестности указанного времени.</returns>
+        IJournalPick<TValue> PickRecords<TValue>(IJournal<TValue> Journal, DateTime Time);
     }
 }
