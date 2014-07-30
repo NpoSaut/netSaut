@@ -26,6 +26,9 @@ namespace Saut.StateModel.Modules
 
             // Выборщик
             Container.RegisterType<IRecordPicker, RecordPicker>();
+
+            // Разное
+            Container.RegisterType<IDateTimeManager, DateTimeManager>();
         }
 
         /// <summary>Инициализирует модуль.</summary>
