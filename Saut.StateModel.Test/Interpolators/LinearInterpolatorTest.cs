@@ -2,8 +2,9 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Saut.StateModel.Interfaces;
+using Saut.StateModel.Interpolators;
 
-namespace Saut.StateModel.Test
+namespace Saut.StateModel.Test.Interpolators
 {
     [TestFixture]
     public class LinearInterpolatorTest

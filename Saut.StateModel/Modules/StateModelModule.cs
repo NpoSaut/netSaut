@@ -1,6 +1,9 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System;
+using Microsoft.Practices.Unity;
 using Modules;
 using Modules.Dependencies;
+using Saut.StateModel.Interfaces;
+using Saut.StateModel.Interpolators;
 
 namespace Saut.StateModel.Modules
 {
@@ -11,7 +14,19 @@ namespace Saut.StateModel.Modules
         /// <summary>Конфигурирует контейнер.</summary>
         /// <remarks>Здесь нужно зарегистрировать все типы, предоставляемые этим модулем наружу и используемые им самим.</remarks>
         /// <param name="Container">Конфигурируемый контейнер.</param>
-        public void ConfigureContainer(IUnityContainer Container) { Container.RegisterType<IStateModelService, StateModelService>(); }
+        public void ConfigureContainer(IUnityContainer Container)
+        {
+            // Внешние сервисы
+            Container.RegisterType<IStateModelService, StateModelService>();
+
+            // Интерполяторы
+            Container.RegisterType<IInterpolator<Double>, LinearInterpolator>();
+            Container.RegisterType<IInterpolator<String>, StepInterpolator<String>>();
+            Container.RegisterType<IInterpolator<Boolean>, StepInterpolator<Boolean>>();
+
+            // Выборщик
+            Container.RegisterType<IRecordPicker, RecordPicker>();
+        }
 
         /// <summary>Инициализирует модуль.</summary>
         /// <remarks>Здесь нужно запустить всё, что нужно запустить, создать всё, что нужно создать.</remarks>
