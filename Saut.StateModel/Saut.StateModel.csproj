@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\JournalRecord.cs" />
     <Compile Include="InterpolatablePropertyBase.cs" />
     <Compile Include="Interpolators\LinearInterpolator.cs" />
+    <Compile Include="Journals\ConcurrentJournal.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
