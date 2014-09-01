@@ -61,6 +61,7 @@
     <Compile Include="Journals\ConcurrentLogNode.cs" />
     <Compile Include="Journals\ILinkedNodesCollectionCleaner.cs" />
     <Compile Include="Journals\ConcurrentLinkedNodesCollection.cs" />
+    <Compile Include="Journals\TailCutLinkedNodesCollectionCleaner.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
