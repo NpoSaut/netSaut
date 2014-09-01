@@ -37,7 +37,6 @@ namespace Saut.StateModel.Journals
                 {
                     ConcurrentLogNode<TValue> targetsNext = target.Next;
                     newJournalNode.Next = targetsNext;
-                    target.Next = newJournalNode;
                     insertionSuccessed = Interlocked.CompareExchange(ref target.Next, newJournalNode, targetsNext) == targetsNext;
                 }
                 else

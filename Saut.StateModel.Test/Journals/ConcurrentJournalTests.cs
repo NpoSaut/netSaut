@@ -60,7 +60,7 @@ namespace Saut.StateModel.Test.Journals
         public void ThreadAddStressTest()
         {
             DateTime t0 = DateTime.Today;
-            const int threadsCount = 3;
+            const int threadsCount = 6;
             const int recordsCount = 30;
             List<List<JournalRecord<int>>> originRecords =
                 Enumerable.Range(0, threadsCount)
