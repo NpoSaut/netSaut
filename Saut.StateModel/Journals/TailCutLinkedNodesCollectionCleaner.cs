@@ -7,7 +7,7 @@ namespace Saut.StateModel.Journals
 {
     /// <summary>Инструмент по отчистке коллекции, отрезающий хвост за первым не актуальным элементом</summary>
     /// <typeparam name="TCollectionElementValue">Тип значения записи журнала</typeparam>
-    internal class TailCutLinkedNodesCollectionCleaner<TCollectionElementValue> : ILinkedNodesCollectionCleaner<TCollectionElementValue>
+    public class TailCutLinkedNodesCollectionCleaner<TCollectionElementValue> : ILinkedNodesCollectionCleaner<TCollectionElementValue>
     {
         private readonly TimeSpan _actualityTimeSpan;
         private readonly IDateTimeManager _dateTimeManager;
