@@ -50,6 +50,7 @@
     <Compile Include="Journals\ConcurrentJournalTests.cs" />
     <Compile Include="Journals\ConcurrentLinkedNodesCollectionTests.cs" />
     <Compile Include="Journals\IntegrationTests.cs" />
+    <Compile Include="Journals\SkippingLinkedNodesCollectionCleanerDecoratorTests.cs" />
     <Compile Include="Journals\TailCutLinkedNodesCollectionCleanerTests.cs" />
     <Compile Include="Journals\TimeSpanTailDetectPolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

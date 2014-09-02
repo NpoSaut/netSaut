@@ -11,10 +11,10 @@ namespace Saut.StateModel.Journals
         public TailCutLinkedNodesCollectionCleaner(ITailDetectPolicy<TCollectionElementValue> TailDetectPolicy) { _tailDetectPolicy = TailDetectPolicy; }
 
         /// <summary>Отчищает коллекцию записей от устаревших элементов</summary>
-        /// <param name="Records">Коллекция записей</param>
-        public void Cleanup(IEnumerable<ConcurrentLogNode<TCollectionElementValue>> Records)
+        /// <param name="Collection">Коллекция записей</param>
+        public void Cleanup(IEnumerable<ConcurrentLogNode<TCollectionElementValue>> Collection)
         {
-            ConcurrentLogNode<TCollectionElementValue> lastActualElement = _tailDetectPolicy.GetLastActualElement(Records);
+            ConcurrentLogNode<TCollectionElementValue> lastActualElement = _tailDetectPolicy.GetLastActualElement(Collection);
             CutNext(lastActualElement);
         }
 

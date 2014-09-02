@@ -7,7 +7,7 @@ namespace Saut.StateModel.Journals
     public interface ILinkedNodesCollectionCleaner<TCollectionElementValue>
     {
         /// <summary>Отчищает коллекцию записей от устаревших элементов</summary>
-        /// <param name="Records">Коллекция записей</param>
-        void Cleanup(IEnumerable<ConcurrentLogNode<TCollectionElementValue>> Records);
+        /// <param name="Collection">Коллекция записей</param>
+        void Cleanup(IEnumerable<ConcurrentLogNode<TCollectionElementValue>> Collection);
     }
 }
