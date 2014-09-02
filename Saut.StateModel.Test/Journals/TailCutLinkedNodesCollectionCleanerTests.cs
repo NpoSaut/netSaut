@@ -11,22 +11,20 @@ namespace Saut.StateModel.Test.Journals
     [TestFixture]
     public class TailCutLinkedNodesCollectionCleanerTests
     {
-        private static TailCutLinkedNodesCollectionCleaner<int> GetConfiguredCutter(DateTime nowTime, TimeSpan actualityTimeSpan)
+        [Test, Description("Проверяет, обрезает ли он всё после указанной даты")]
+        public void TestCut()
         {
-            var dtm = MockRepository.GenerateMock<IDateTimeManager>();
-            dtm.Stub(m => m.Now).Return(nowTime);
-            return new TailCutLinkedNodesCollectionCleaner<int>(actualityTimeSpan, dtm);
-        }
+            var nodeX = new ConcurrentLogNode<int>(100);
+            var collection = Enumerable.Range(0, 20).Select(i => new ConcurrentLogNode<int>(i) { Next = nodeX}).ToList();
 
-//        [Test, Description("Проверяет, обрезает ли он всё после указанной даты")]
-//        public void TestCut()
-//        {
-//            var t0 = DateTime.Today;
-//            var cutter = GetConfiguredCutter(t0, TimeSpan.FromSeconds(10));
-//            var originalCollection = Enumerable.Range(0, 20).Select(i => new ConcurrentLogNode<int>(new JournalRecord<int>(t0.AddSeconds(i), i)));
-//            var collection = Enumerable.Range(0, 20).Select(i => new ConcurrentLogNode<int>(new JournalRecord<int>(t0.AddSeconds(i), i)));
-//            cutter.Cleanup(collection);
-//            CollectionAssert.AreEquivalent();
-//        }
+            var policy = MockRepository.GenerateMock<ITailDetectPolicy<int>>();
+            policy.Expect(p => p.GetLastActualElement(collection)).Return(collection[2]);
+            
+            var cutter = new TailCutLinkedNodesCollectionCleaner<int>(policy);
+            cutter.Cleanup(collection);
+
+            policy.VerifyAllExpectations();
+            Assert.AreEqual(collection[2].Next, null);
+        }
     }
 }

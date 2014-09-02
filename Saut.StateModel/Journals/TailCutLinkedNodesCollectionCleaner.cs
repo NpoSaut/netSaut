@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Saut.StateModel.Interfaces;
+﻿using System.Collections.Generic;
 
 namespace Saut.StateModel.Journals
 {
@@ -9,21 +6,15 @@ namespace Saut.StateModel.Journals
     /// <typeparam name="TCollectionElementValue">Тип значения записи журнала</typeparam>
     public class TailCutLinkedNodesCollectionCleaner<TCollectionElementValue> : ILinkedNodesCollectionCleaner<TCollectionElementValue>
     {
-        private readonly TimeSpan _actualityTimeSpan;
-        private readonly IDateTimeManager _dateTimeManager;
+        private readonly ITailDetectPolicy<TCollectionElementValue> _tailDetectPolicy;
 
-        public TailCutLinkedNodesCollectionCleaner(TimeSpan ActualityTimeSpan, IDateTimeManager DateTimeManager)
-        {
-            _actualityTimeSpan = ActualityTimeSpan;
-            _dateTimeManager = DateTimeManager;
-        }
+        public TailCutLinkedNodesCollectionCleaner(ITailDetectPolicy<TCollectionElementValue> TailDetectPolicy) { _tailDetectPolicy = TailDetectPolicy; }
 
         /// <summary>Отчищает коллекцию записей от устаревших элементов</summary>
         /// <param name="Records">Коллекция записей</param>
         public void Cleanup(IEnumerable<ConcurrentLogNode<TCollectionElementValue>> Records)
         {
-            DateTime actualityTime = _dateTimeManager.Now - _actualityTimeSpan;
-            ConcurrentLogNode<TCollectionElementValue> lastActualElement = Records.FirstOrDefault(el => el.Item.Time <= actualityTime);
+            ConcurrentLogNode<TCollectionElementValue> lastActualElement = _tailDetectPolicy.GetLastActualElement(Records);
             CutNext(lastActualElement);
         }
 

@@ -1,40 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Saut.StateModel.Interfaces;
 
 namespace Saut.StateModel.Journals
 {
-    public class ConcurrentLinkedNodesCollection<TValue> : IEnumerable<ConcurrentLogNode<TValue>>
+    public class ConcurrentLinkedNodesCollection<TItem> : IConcurrentLinkedCollection<TItem>
     {
         /// <summary>Ќаиболее актуальное значение в журнале</summary>
-        private ConcurrentLogNode<TValue> _head;
+        private ConcurrentLogNode<TItem> _head;
 
-        public IEnumerator<ConcurrentLogNode<TValue>> GetEnumerator() { return new LinkedNodesEnumerator(_head); }
         IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 
         /// <summary>ѕытаетс€ не блокирующим образом вставить запись в коллекцию</summary>
-        /// <param name="NewJournalNode">¬ставл€ема€ запись</param>
+        /// <param name="Item">¬ставл€емый элемент</param>
         /// <param name="Target">
         ///     «апись, после которой нужно вставить новую или null, если новую запись нужно вставить в начало
         ///     коллекции
         /// </param>
         /// <returns>True, если запись была успешно добавлена в коллекцию, False в противном случае</returns>
-        public bool TryInsert(ConcurrentLogNode<TValue> NewJournalNode, ConcurrentLogNode<TValue> Target)
+        public bool TryInsert(TItem Item, ConcurrentLogNode<TItem> Target)
         {
+            var newJournalNode = new ConcurrentLogNode<TItem>(Item);
             return
                 Target != null
-                    ? TryInsertInSequence(NewJournalNode, Target)
-                    : TryInsertAsHead(NewJournalNode);
+                    ? TryInsertInSequence(newJournalNode, Target)
+                    : TryInsertAsHead(newJournalNode);
         }
+
+        public IEnumerator<ConcurrentLogNode<TItem>> GetEnumerator() { return new LinkedNodesEnumerator(_head); }
 
         /// <summary>ѕытаетс€ не блокирующим образом вставить запись в середину коллекцию</summary>
         /// <param name="NewJournalNode">¬ставл€ема€ запись</param>
         /// <param name="Target">«апись, после которой нужно вставить новую</param>
         /// <returns>True, если запись была успешно добавлена в коллекцию, False в противном случае</returns>
-        private bool TryInsertInSequence(ConcurrentLogNode<TValue> NewJournalNode, ConcurrentLogNode<TValue> Target)
+        private bool TryInsertInSequence(ConcurrentLogNode<TItem> NewJournalNode, ConcurrentLogNode<TItem> Target)
         {
-            ConcurrentLogNode<TValue> targetsNext = Target.Next;
+            ConcurrentLogNode<TItem> targetsNext = Target.Next;
             NewJournalNode.Next = targetsNext;
             return Interlocked.CompareExchange(ref Target.Next, NewJournalNode, targetsNext) == targetsNext;
         }
@@ -42,19 +43,19 @@ namespace Saut.StateModel.Journals
         /// <summary>ѕытаетс€ не блокирующим образом вставить запись в начало коллекции</summary>
         /// <param name="NewJournalNode">¬ставл€ема€ запись</param>
         /// <returns>True, если запись была успешно добавлена в коллекцию, False в противном случае</returns>
-        private bool TryInsertAsHead(ConcurrentLogNode<TValue> NewJournalNode)
+        private bool TryInsertAsHead(ConcurrentLogNode<TItem> NewJournalNode)
         {
-            ConcurrentLogNode<TValue> oldHead = _head;
+            ConcurrentLogNode<TItem> oldHead = _head;
             NewJournalNode.Next = oldHead;
             return Interlocked.CompareExchange(ref _head, NewJournalNode, oldHead) == oldHead;
         }
 
-        private class LinkedNodesEnumerator : IEnumerator<ConcurrentLogNode<TValue>>
+        private class LinkedNodesEnumerator : IEnumerator<ConcurrentLogNode<TItem>>
         {
-            private readonly ConcurrentLogNode<TValue> _headNode;
-            private ConcurrentLogNode<TValue> _currentNode;
+            private readonly ConcurrentLogNode<TItem> _headNode;
+            private ConcurrentLogNode<TItem> _currentNode;
 
-            public LinkedNodesEnumerator(ConcurrentLogNode<TValue> HeadNode)
+            public LinkedNodesEnumerator(ConcurrentLogNode<TItem> HeadNode)
             {
                 _headNode = HeadNode;
                 Reset();
@@ -75,9 +76,9 @@ namespace Saut.StateModel.Journals
                 return (_currentNode != null);
             }
 
-            public void Reset() { _currentNode = new ConcurrentLogNode<TValue>(default(JournalRecord<TValue>)) { Next = _headNode }; }
+            public void Reset() { _currentNode = new ConcurrentLogNode<TItem>(default(TItem)) { Next = _headNode }; }
 
-            public ConcurrentLogNode<TValue> Current
+            public ConcurrentLogNode<TItem> Current
             {
                 get { return _currentNode; }
             }

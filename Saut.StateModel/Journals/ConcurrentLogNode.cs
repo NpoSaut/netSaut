@@ -1,13 +1,11 @@
-﻿using Saut.StateModel.Interfaces;
-
-namespace Saut.StateModel.Journals
+﻿namespace Saut.StateModel.Journals
 {
-    public class ConcurrentLogNode<TValue>
+    public class ConcurrentLogNode<TItem>
     {
-        public readonly JournalRecord<TValue> Item;
-        public ConcurrentLogNode<TValue> Next;
+        public readonly TItem Item;
+        public ConcurrentLogNode<TItem> Next;
 
-        public ConcurrentLogNode(JournalRecord<TValue> Item) { this.Item = Item; }
+        public ConcurrentLogNode(TItem Item) { this.Item = Item; }
 
         public override string ToString() { return string.Format("{0} -> {1}", Item, Next != null ? "*" : "-"); }
     }

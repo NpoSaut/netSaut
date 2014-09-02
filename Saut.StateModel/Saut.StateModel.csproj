@@ -59,9 +59,12 @@
     <Compile Include="Interpolators\LinearInterpolator.cs" />
     <Compile Include="Journals\ConcurrentJournal.cs" />
     <Compile Include="Journals\ConcurrentLogNode.cs" />
+    <Compile Include="Journals\IConcurrentLinkedCollection.cs" />
     <Compile Include="Journals\ILinkedNodesCollectionCleaner.cs" />
     <Compile Include="Journals\ConcurrentLinkedNodesCollection.cs" />
+    <Compile Include="Journals\ITailDetectPolicy.cs" />
     <Compile Include="Journals\TailCutLinkedNodesCollectionCleaner.cs" />
+    <Compile Include="Journals\TimeSpanTailDetectPolicy.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
