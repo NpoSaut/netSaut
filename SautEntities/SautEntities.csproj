@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\IMessageProcessor.cs" />
+    <Compile Include="Communication\MessageProcessorBase.cs" />
     <Compile Include="Entities\RailwayOrdinate.cs" />
     <Compile Include="Entities\RestrictionLayer.cs" />
     <Compile Include="Entities\RestrictionTarget.cs" />
@@ -48,9 +50,6 @@
     <Compile Include="EventServices\IEventExpectant.cs" />
     <Compile Include="EventServices\IEventListener.cs" />
     <Compile Include="EventServices\IEventAggregator.cs" />
-    <Compile Include="FrameProcessing\FrameProcessorBase.cs" />
-    <Compile Include="FrameProcessing\IFrameProcessingService.cs" />
-    <Compile Include="FrameProcessing\IFrameProcessor.cs" />
     <Compile Include="IEventManager.cs" />
     <Compile Include="Interfaces\ICurve.cs" />
     <Compile Include="Interfaces\ICurveAggregator.cs" />
