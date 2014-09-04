@@ -1,10 +1,9 @@
-﻿using System;
-using BlokFrames;
+﻿using BlokFrames;
 using Communications;
 using Communications.Can;
 using Saut.Communication.Interfaces;
 
-namespace Saut.Communication
+namespace Saut.Communication.ProcessingServices
 {
     /// <summary>Простой сервис обработки сообщений</summary>
     /// <remarks>Висит в бесконечной петле, пытаясь принять и обработать все входящие сообщения</remarks>

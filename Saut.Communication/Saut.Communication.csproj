@@ -52,12 +52,12 @@
     <Compile Include="Interfaces\IDeliveryGuy.cs" />
     <Compile Include="Interfaces\IMessagesDecoder.cs" />
     <Compile Include="Decoding\MessagesDecoder.cs" />
-    <Compile Include="ProcessingServices\BasicDeliveryGuy.cs" />
+    <Compile Include="MessagesDelivers\BasicDeliveryGuy.cs" />
     <Compile Include="Modules\DecoderModule.cs" />
     <Compile Include="Modules\MessageProcessingModule.cs" />
-    <Compile Include="ProcessingServices\LookupDeliveryGuy.cs" />
+    <Compile Include="MessagesDelivers\LookupDeliveryGuy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageProcessingService.cs" />
+    <Compile Include="ProcessingServices\MessageProcessingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CanLib\BlokFrames\BlokFrames.csproj">
