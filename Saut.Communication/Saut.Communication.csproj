@@ -51,7 +51,7 @@
     <Compile Include="Interfaces\IMessageProcessingService.cs" />
     <Compile Include="Interfaces\IDeliveryGuy.cs" />
     <Compile Include="Interfaces\IMessagesDecoder.cs" />
-    <Compile Include="Decoding\MessagesDecoder.cs" />
+    <Compile Include="Decoding\BlokFramesDecoder.cs" />
     <Compile Include="MessagesDelivers\BasicDeliveryGuy.cs" />
     <Compile Include="Modules\DecoderModule.cs" />
     <Compile Include="Modules\MessageProcessingModule.cs" />

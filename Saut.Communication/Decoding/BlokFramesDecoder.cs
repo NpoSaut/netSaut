@@ -4,7 +4,7 @@ using Saut.Communication.Interfaces;
 
 namespace Saut.Communication.Decoding
 {
-    class MessagesDecoder : IMessagesDecoder
+    class BlokFramesDecoder : IMessagesDecoder
     {
         public BlokFrame DecodeFrame(CanFrame Frame) { return BlokFrame.GetBlokFrame(Frame); }
     }
