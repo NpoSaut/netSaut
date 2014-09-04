@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.StateModel.Test", "Sau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.Communication", "Saut.Communication\Saut.Communication.csproj", "{5B76F769-B180-4E2A-8C84-F2FFD6152D2C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D5ECCE9D-395B-489B-B854-CD60D762B543}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -90,5 +92,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC28490C-DE4C-4BB3-AAE8-D5F9408A6CCE} = {D5ECCE9D-395B-489B-B854-CD60D762B543}
+		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6} = {D5ECCE9D-395B-489B-B854-CD60D762B543}
 	EndGlobalSection
 EndGlobal
