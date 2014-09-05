@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5DA7AD11-9FB7-4735-94C9-EBE9D9B22DC4}</ProjectGuid>
+    <ProjectGuid>{5B76F769-B180-4E2A-8C84-F2FFD6152D2C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Saut.FrameProcessing</RootNamespace>
-    <AssemblyName>Saut.FrameProcessing</AssemblyName>
+    <RootNamespace>Saut.Communication</RootNamespace>
+    <AssemblyName>Saut.Communication</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,14 +48,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrameProcessingService.cs" />
-    <Compile Include="Modules\FrameProcessingModule.cs" />
+    <Compile Include="Interfaces\IMessageProcessingService.cs" />
+    <Compile Include="Interfaces\IDeliveryGuy.cs" />
+    <Compile Include="Interfaces\IMessagesDecoder.cs" />
+    <Compile Include="Decoding\BlokFramesDecoder.cs" />
+    <Compile Include="MessagesDelivers\BasicDeliveryGuy.cs" />
+    <Compile Include="Modules\DecoderModule.cs" />
+    <Compile Include="Modules\MessageProcessingModule.cs" />
+    <Compile Include="MessagesDelivers\LookupDeliveryGuy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProcessingServices\MessageProcessingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CanLib\BlokFrames\BlokFrames.csproj">
       <Project>{405B0F26-46EE-4D8C-9267-652F7D4C4AB0}</Project>
       <Name>BlokFrames</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CanLib\Communications\Communications.csproj">
+      <Project>{6C5B1ECA-5187-4F63-8CF1-C17DF50D0F65}</Project>
+      <Name>Communications</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Modules.csproj">
       <Project>{D6DB682E-8412-40FA-8E48-524B3B48FA37}</Project>

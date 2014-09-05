@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Saut.FrameProcessing")]
+[assembly: AssemblyTitle("Saut.Communication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Saut.FrameProcessing")]
+[assembly: AssemblyProduct("Saut.Communication")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("a4f08b59-9cee-4669-8ca9-b20e157cdd51")]
+[assembly: Guid("d7823d20-3d04-4ea9-a0de-80217820fb93")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

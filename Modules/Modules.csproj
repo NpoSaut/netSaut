@@ -54,10 +54,14 @@
     <Compile Include="Dependencies\DependenciesResolver.cs" />
     <Compile Include="Dependencies\IDependenciesResolver.cs" />
     <Compile Include="Dependencies\ModuleInformation.cs" />
+    <Compile Include="Exceptions\ModulesWasNotInitializedException.cs" />
     <Compile Include="Exceptions\UnresolvableDependenciesException.cs" />
     <Compile Include="Dependencies\DependOnAttribute.cs" />
     <Compile Include="Dependencies\ProvidesAttribute.cs" />
+    <Compile Include="IExecutableModule.cs" />
     <Compile Include="IModule.cs" />
+    <Compile Include="IModulesLauncher.cs" />
+    <Compile Include="ModuleRunners\ThreadedModulesLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
