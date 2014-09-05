@@ -4,6 +4,7 @@ using Modules;
 using Modules.Dependencies;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
+using Saut.StateModel.Interpolators.InterpolationTools;
 
 namespace Saut.StateModel.Modules
 {
@@ -20,7 +21,8 @@ namespace Saut.StateModel.Modules
             Container.RegisterType<IStateModelService, StateModelService>();
 
             // Интерполяторы
-            Container.RegisterType<IInterpolator<Double>, LinearInterpolator>();
+            Container.RegisterType<IWeightingTool<Double>, NumericWeightingTool>();
+            Container.RegisterType<IInterpolator<Double>, LinearInterpolator<Double>>();
             Container.RegisterType<IInterpolator<String>, StepInterpolator<String>>();
             Container.RegisterType<IInterpolator<Boolean>, StepInterpolator<Boolean>>();
 

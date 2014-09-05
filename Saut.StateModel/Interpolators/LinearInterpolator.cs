@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Saut.StateModel.Interfaces;
+using Saut.StateModel.Interpolators.InterpolationTools;
 
 namespace Saut.StateModel.Interpolators
 {
@@ -11,19 +12,23 @@ namespace Saut.StateModel.Interpolators
     ///     время больше, чем последняя запись в журнале, производит линейную экстраполяцию на основе последних двух точек до
     ///     указанного момента.
     /// </remarks>
-    public class LinearInterpolator : IInterpolator<Double>
+    public class LinearInterpolator<TValue> : IInterpolator<TValue>
     {
+        private IWeightingTool<TValue> _weightingTool;
+        public LinearInterpolator(IWeightingTool<TValue> WeightingTool) { _weightingTool = WeightingTool; }
+
         /// <summary>Путём интерполяции получает значение свойства в произвольный момент времени.</summary>
         /// <param name="Pick">Выборка из журнала в окрестности указанного времени.</param>
         /// <param name="Time">Время.</param>
         /// <returns>Значение свойства в указанное время, полученное путём интерполяции.</returns>
-        public Double Interpolate(IJournalPick<Double> Pick, DateTime Time)
+        public TValue Interpolate(IJournalPick<TValue> Pick, DateTime Time)
         {
-            JournalRecord<Double>[] points = Zip(Pick).Take(2).ToArray();
-            return points[0].Value + (Time.Ticks - points[0].Time.Ticks) * (points[1].Value - points[0].Value) / (points[1].Time.Ticks - points[0].Time.Ticks);
+            var points = Zip(Pick).Take(2).ToArray();
+            double weight = ((Double)(Time.Ticks - points[0].Time.Ticks)) / (points[1].Time.Ticks - points[0].Time.Ticks);
+            return _weightingTool.GetWeightedArithmeticMean(points[0].Value, points[1].Value, weight);
         }
 
-        private static IEnumerable<JournalRecord<Double>> Zip(IJournalPick<Double> Pick)
+        private static IEnumerable<JournalRecord<TValue>> Zip(IJournalPick<TValue> Pick)
         {
             var enumerators = new[] { Pick.RecordsBefore.GetEnumerator(), Pick.RecordsAfter.GetEnumerator() };
             int i = 0;

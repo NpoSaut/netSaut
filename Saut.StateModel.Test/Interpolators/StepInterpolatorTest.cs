@@ -4,7 +4,7 @@ using Rhino.Mocks;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
 
-namespace Saut.StateModel.Test.Interpolators
+namespace Saut.StateModel.Test.Interpolation
 {
     [TestFixture]
     public class StepInterpolatorTest

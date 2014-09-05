@@ -46,7 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InterpolatablePropertyBaseTest.cs" />
-    <Compile Include="Interpolators\LinearInterpolatorTest.cs" />
+    <Compile Include="Interpolators\InterpolationTools\NumericWeightingToolTests.cs" />
+    <Compile Include="Interpolators\LinearInterpolatorTests.cs" />
     <Compile Include="Journals\ConcurrentJournalTests.cs" />
     <Compile Include="Journals\ConcurrentLinkedNodesCollectionTests.cs" />
     <Compile Include="Journals\IntegrationTests.cs" />

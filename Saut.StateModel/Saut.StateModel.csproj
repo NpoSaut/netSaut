@@ -56,6 +56,9 @@
     <Compile Include="Interfaces\IRecordPicker.cs" />
     <Compile Include="Interfaces\JournalRecord.cs" />
     <Compile Include="InterpolatablePropertyBase.cs" />
+    <Compile Include="Interpolators\InterpolationTools\IWeightingTool.cs" />
+    <Compile Include="Interpolators\InterpolationTools\NumericWeightingTool.cs" />
+    <Compile Include="Interpolators\InterpolationTools\VectorWeightingToolBase.cs" />
     <Compile Include="Interpolators\LinearInterpolator.cs" />
     <Compile Include="Journals\ConcurrentJournal.cs" />
     <Compile Include="Journals\ConcurrentLogNode.cs" />
