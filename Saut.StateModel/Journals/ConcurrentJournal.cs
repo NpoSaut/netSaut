@@ -8,18 +8,18 @@ namespace Saut.StateModel.Journals
     public class ConcurrentJournal<TValue> : IJournal<TValue>
     {
         private readonly ILinkedNodesCollectionCleaner<JournalRecord<TValue>> _cleaner;
-        private readonly IConcurrentLinkedCollection<JournalRecord<TValue>> _records;
+        private readonly IConcurrentLinkedCollection<JournalRecord<TValue>> _collection;
 
-        public ConcurrentJournal(IConcurrentLinkedCollection<JournalRecord<TValue>> Records, ILinkedNodesCollectionCleaner<JournalRecord<TValue>> Cleaner)
+        public ConcurrentJournal(IConcurrentLinkedCollection<JournalRecord<TValue>> Collection, ILinkedNodesCollectionCleaner<JournalRecord<TValue>> Cleaner)
         {
             _cleaner = Cleaner;
-            _records = Records;
+            _collection = Collection;
         }
 
         /// <summary>Все записи в журнале в порядке устаревания (новые - первыми).</summary>
         public IEnumerable<JournalRecord<TValue>> Records
         {
-            get { return _records.Select(n => n.Item); }
+            get { return _collection.Select(n => n.Item); }
         }
 
         /// <summary>Добавляет запись в журнал.</summary>
@@ -34,10 +34,10 @@ namespace Saut.StateModel.Journals
             bool insertionSuccessed;
             do
             {
-                ConcurrentLogNode<JournalRecord<TValue>> target = _records.TakeWhile(r => r.Item.Time > Record.Time).LastOrDefault();
-                insertionSuccessed = _records.TryInsert(Record, target);
+                ConcurrentLogNode<JournalRecord<TValue>> target = _collection.TakeWhile(r => r.Item.Time > Record.Time).LastOrDefault();
+                insertionSuccessed = _collection.TryInsert(Record, target);
             } while (!insertionSuccessed);
-            _cleaner.Cleanup(_records);
+            _cleaner.Cleanup(_collection);
         }
     }
 }
