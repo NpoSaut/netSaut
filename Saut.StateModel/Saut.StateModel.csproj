@@ -63,6 +63,7 @@
     <Compile Include="Journals\ConcurrentJournal.cs" />
     <Compile Include="Journals\ConcurrentLogNode.cs" />
     <Compile Include="Journals\IConcurrentLinkedCollection.cs" />
+    <Compile Include="Interfaces\IJournalFactory.cs" />
     <Compile Include="Journals\ILinkedNodesCollectionCleaner.cs" />
     <Compile Include="Journals\ConcurrentLinkedNodesCollection.cs" />
     <Compile Include="Journals\ITailDetectPolicy.cs" />

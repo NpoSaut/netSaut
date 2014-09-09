@@ -12,12 +12,12 @@ namespace Saut.StateModel
         private readonly IRecordPicker _recordPicker;
         private readonly IDateTimeManager _timeManager;
 
-        public InterpolatablePropertyBase(IDateTimeManager TimeManager, IJournal<TValue> Journal, IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker)
+        public InterpolatablePropertyBase(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory, IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker)
         {
             _timeManager = TimeManager;
             _interpolator = Interpolator;
             _recordPicker = RecordPicker;
-            this.Journal = Journal;
+            Journal = JournalFactory.GetJournal();
         }
 
         /// <summary>Название свойства.</summary>
