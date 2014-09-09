@@ -53,6 +53,7 @@
     <Compile Include="StateProperties\GpsReliabilityProperty.cs" />
     <Compile Include="Modules\CommonPropertiesModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StateProperties\SpeedProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Geographics\Geographics.csproj">
