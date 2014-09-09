@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Modules;
 using Modules.Dependencies;
 using Saut.Communication.BlokFrameProcessors;
@@ -14,7 +13,12 @@ namespace Saut.Communication.Modules
         /// <summary>Конфигурирует контейнер</summary>
         /// <remarks>Здесь нужно зарегистрировать все типы, предоставляемые этим модулем наружу и используемые им самим</remarks>
         /// <param name="Container">Конфигурируемый контейнер</param>
-        public void ConfigureContainer(IUnityContainer Container) { Container.RegisterType<IMessageProcessor, MmAltLongProcessor>("MmAltLongProcessor"); }
+        public void ConfigureContainer(IUnityContainer Container)
+        {
+            // Обработчики
+            Container.RegisterType<IMessageProcessor, MmAltLongProcessor>("MmAltLongProcessor");
+            Container.RegisterType<IMessageProcessor, IpdStateProcessor>("IpdStateProcessor");
+        }
 
         /// <summary>Инициализирует модуль</summary>
         /// <remarks>Здесь нужно запустить всё, что нужно запустить, создать всё, что нужно создать.</remarks>

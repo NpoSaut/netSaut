@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlokFrameProcessors\IpdStateProcessor.cs" />
     <Compile Include="BlokFrameProcessors\MmAltLongProcessor.cs" />
     <Compile Include="Modules\BlokFrameProcessorsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
