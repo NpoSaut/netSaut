@@ -4,7 +4,7 @@ using Saut.StateModel.StateProperties;
 
 namespace Saut.Communication.BlokFrameProcessors
 {
-    /// <summary>Обработчик сообщения MM_ALT_LONG с GPS-данными</summary>
+    /// <summary>Обработчик сообщения <seealso cref="MmAltLongFrame"/> с GPS-данными</summary>
     public class MmAltLongProcessor : MessageProcessorBase<MmAltLongFrame>
     {
         private readonly GpsPositionProperty _positionProperty;
