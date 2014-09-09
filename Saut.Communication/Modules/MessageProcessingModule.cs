@@ -1,4 +1,6 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Communications;
+using Communications.Can;
+using Microsoft.Practices.Unity;
 using Modules;
 using Modules.Dependencies;
 using Saut.Communication.Interfaces;
@@ -7,7 +9,7 @@ using Saut.Communication.ProcessingServices;
 namespace Saut.Communication.Modules
 {
     /// <summary>Сервис обработки входящих сообщений</summary>
-    [DependOn(typeof (IMessageProcessor))]
+    [DependOn(typeof (IMessageProcessor), typeof (ISocketSource<ICanSocket>))]
     [Provides(typeof (IMessageProcessingService))]
     public class MessageProcessingModule : IExecutableModule
     {
