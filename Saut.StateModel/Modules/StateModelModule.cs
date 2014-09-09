@@ -29,6 +29,9 @@ namespace Saut.StateModel.Modules
             Container.RegisterType<IInterpolator<String>, StepInterpolator<String>>();
             Container.RegisterType<IInterpolator<Boolean>, StepInterpolator<Boolean>>();
 
+            // Журнал
+            Container.RegisterType(typeof (IJournalFactory<>), typeof (TimeCuttedConcurrentJournalFactory<>));
+
             // Выборщик
             Container.RegisterType<IRecordPicker, RecordPicker>();
 

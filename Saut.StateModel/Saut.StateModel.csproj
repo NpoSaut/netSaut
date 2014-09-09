@@ -69,6 +69,7 @@
     <Compile Include="Journals\ITailDetectPolicy.cs" />
     <Compile Include="Journals\SkippingLinkedNodesCollectionCleanerDecorator.cs" />
     <Compile Include="Journals\TailCutLinkedNodesCollectionCleaner.cs" />
+    <Compile Include="Journals\TimeCuttedConcurrentJournalFactory.cs" />
     <Compile Include="Journals\TimeSpanTailDetectPolicy.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
