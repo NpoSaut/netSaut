@@ -9,7 +9,7 @@ namespace Saut.Communication.Modules
     /// <summary>Сервис обработки входящих сообщений</summary>
     [DependOn(typeof (IMessageProcessor))]
     [Provides(typeof (IMessageProcessingService))]
-    public class MessageProcessingModule : IModule
+    public class MessageProcessingModule : IExecutableModule
     {
         private IMessageProcessingService _service;
 
