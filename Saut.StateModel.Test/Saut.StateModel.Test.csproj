@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InterpolatablePropertyBaseTest.cs" />
+    <Compile Include="InterpolatablePropertyTestsBase.cs" />
     <Compile Include="Interpolators\InterpolationTools\NumericWeightingToolTests.cs" />
     <Compile Include="Interpolators\LinearInterpolatorTests.cs" />
     <Compile Include="Journals\ConcurrentJournalTests.cs" />

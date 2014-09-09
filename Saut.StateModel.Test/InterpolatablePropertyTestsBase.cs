@@ -5,28 +5,24 @@ using Saut.StateModel.Interfaces;
 
 namespace Saut.StateModel.Test
 {
-    public abstract class InterpolatablePropertyBaseTest<TValue>
+    public abstract class InterpolatablePropertyTestsBase<TValue>
     {
         protected abstract TValue TestValue { get; }
 
-        protected abstract InterpolatablePropertyBase<TValue> GetInstance(IDateTimeManager TimeManager, IJournal<TValue> Journal,
-                                                                          IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker);
+        protected abstract InterpolatablePropertyBase<TValue> GetInstance(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory, IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker);
 
-        private InterpolatablePropertyBase<TValue> GetInstance(TestSuit ts)
-        {
-            return GetInstance(ts.TimeManager, ts.Journal, ts.Interpolator, ts.Picker);
-        }
+        private InterpolatablePropertyBase<TValue> GetInstance(TestSuit ts) { return GetInstance(ts.TimeManager, ts.JournalFactory, ts.Interpolator, ts.Picker); }
 
         [Test]
         public void TestUpdateCurrentValue()
         {
             var ts = new TestSuit();
-            ts.Journal.Expect(j => j.AddRecord(TestValue, ts.TimeManager.Now));
+            ts.JournalMock.Expect(j => j.AddRecord(TestValue, ts.TimeManager.Now));
 
             InterpolatablePropertyBase<TValue> property = GetInstance(ts);
             property.UpdateValue(TestValue);
 
-            ts.Journal.VerifyAllExpectations();
+            ts.JournalMock.VerifyAllExpectations();
         }
 
         [Test]
@@ -36,12 +32,12 @@ namespace Saut.StateModel.Test
 
             DateTime probeTime = ts.TimeManager.Now.AddSeconds(-15);
 
-            ts.Journal.Expect(j => j.AddRecord(TestValue, probeTime));
+            ts.JournalMock.Expect(j => j.AddRecord(TestValue, probeTime));
 
             InterpolatablePropertyBase<TValue> property = GetInstance(ts);
             property.UpdateValue(TestValue, probeTime);
 
-            ts.Journal.VerifyAllExpectations();
+            ts.JournalFactory.VerifyAllExpectations();
         }
 
         [Test]
@@ -53,7 +49,7 @@ namespace Saut.StateModel.Test
 
             var pick = MockRepository.GenerateMock<IJournalPick<TValue>>();
             ts.Picker
-              .Expect(p => p.PickRecords(ts.Journal, probeTime))
+              .Expect(p => p.PickRecords(ts.JournalMock, probeTime))
               .Return(pick);
             ts.Interpolator
               .Expect(i => i.Interpolate(pick, probeTime))
@@ -74,38 +70,40 @@ namespace Saut.StateModel.Test
             public TestSuit(DateTime t0)
             {
                 TimeManager = MockRepository.GenerateMock<IDateTimeManager>();
-                Journal = MockRepository.GenerateMock<IJournal<TValue>>();
+                JournalMock = MockRepository.GenerateMock<IJournal<TValue>>();
+                JournalFactory = MockRepository.GenerateMock<IJournalFactory<TValue>>();
                 Interpolator = MockRepository.GenerateMock<IInterpolator<TValue>>();
                 Picker = MockRepository.GenerateMock<IRecordPicker>();
 
                 TimeManager.Stub(m => m.Now).Return(t0);
+                JournalFactory.Stub(jf => jf.GetJournal()).Return(JournalMock);
             }
 
+            public IJournal<TValue> JournalMock { get; private set; }
             public IDateTimeManager TimeManager { get; private set; }
-            public IJournal<TValue> Journal { get; private set; }
+            public IJournalFactory<TValue> JournalFactory { get; private set; }
             public IInterpolator<TValue> Interpolator { get; private set; }
             public IRecordPicker Picker { get; private set; }
         }
     }
 
     [TestFixture]
-    internal class InterpolatablePropertyBaseTestImpl : InterpolatablePropertyBaseTest<int>
+    public class InterpolatablePropertyBaseTests : InterpolatablePropertyTestsBase<int>
     {
         protected override int TestValue
         {
             get { return 17; }
         }
 
-        protected override InterpolatablePropertyBase<int> GetInstance(IDateTimeManager TimeManager, IJournal<int> Journal, IInterpolator<int> Interpolator,
-                                                                       IRecordPicker RecordPicker)
+        protected override InterpolatablePropertyBase<int> GetInstance(IDateTimeManager TimeManager, IJournalFactory<int> JournalFactory, IInterpolator<int> Interpolator, IRecordPicker RecordPicker)
         {
-            return new MyProperty(TimeManager, Journal, Interpolator, RecordPicker);
+            return new MyProperty(TimeManager, JournalFactory, Interpolator, RecordPicker);
         }
 
         private class MyProperty : InterpolatablePropertyBase<int>
         {
-            public MyProperty(IDateTimeManager TimeManager, IJournal<int> Journal, IInterpolator<int> Interpolator, IRecordPicker RecordPicker)
-                : base(TimeManager, Journal, Interpolator, RecordPicker) { }
+            public MyProperty(IDateTimeManager TimeManager, IJournalFactory<int> JournalFactory, IInterpolator<int> Interpolator, IRecordPicker RecordPicker)
+                : base(TimeManager, JournalFactory, Interpolator, RecordPicker) { }
 
             /// <summary>Название свойства.</summary>
             public override string Name
