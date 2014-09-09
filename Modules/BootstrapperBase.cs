@@ -11,7 +11,7 @@ namespace Modules
     {
         private bool _initialized;
         private List<IModule> _modules;
-        protected IUnityContainer Container { get; private set; }
+        public IUnityContainer Container { get; private set; }
 
         protected abstract IEnumerable<IModule> EnumerateModules();
 
