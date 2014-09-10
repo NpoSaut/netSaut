@@ -2,6 +2,7 @@
 using Microsoft.Practices.Unity;
 using Modules;
 using Modules.Dependencies;
+using Modules.TypeRegistration;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
 using Saut.StateModel.Interpolators.InterpolationTools;
@@ -30,6 +31,7 @@ namespace Saut.StateModel.Modules
 
             // Разное
             Container.RegisterType<IDateTimeManager, DateTimeManager>();
+            Container.RegisterType<IRegistrant, SingletonRegistrant>("PropertyRegistrant");
         }
 
         /// <summary>Инициализирует модуль.</summary>
