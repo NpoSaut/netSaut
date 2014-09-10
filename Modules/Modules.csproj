@@ -63,6 +63,10 @@
     <Compile Include="IModulesLauncher.cs" />
     <Compile Include="ModuleRunners\ThreadedModulesLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TypeRegistration\AssemblyScanTypesEnumerator.cs" />
+    <Compile Include="TypeRegistration\IRegistrant.cs" />
+    <Compile Include="TypeRegistration\ITypesEnumerator.cs" />
+    <Compile Include="TypeRegistration\SingletonRegistrant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
