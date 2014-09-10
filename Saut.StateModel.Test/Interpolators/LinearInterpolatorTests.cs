@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
 using Saut.StateModel.Interpolators.InterpolationTools;
@@ -13,7 +14,7 @@ namespace Saut.StateModel.Test.Interpolators
         [Test]
         public void SimpleTest()
         {
-            var t0 = DateTime.Today;
+            DateTime t0 = DateTime.Today;
             var pick = MockRepository.GenerateMock<IJournalPick<Double>>();
             pick.Stub(p => p.RecordsAfter).Return(new[] { new JournalRecord<double>(t0.AddMilliseconds(150), 3000) });
             pick.Stub(p => p.RecordsBefore).Return(new[] { new JournalRecord<double>(t0.AddMilliseconds(50), 1000) });
@@ -29,6 +30,20 @@ namespace Saut.StateModel.Test.Interpolators
             Assert.AreEqual(interpolator.Interpolate(pick, t0.AddMilliseconds(100)), 2000);
             Assert.AreEqual(interpolator.Interpolate(pick, t0.AddMilliseconds(150)), 3000);
             wt.VerifyAllExpectations();
+        }
+
+        [Test, Description("Проверяет, будет ли вызываться исключение PropertyValueUndefinedException при недостаточном количестве элементов в JournalPick")]
+        [ExpectedException(typeof (PropertyValueUndefinedException))]
+        public void TestPropertyValueUndefinedException()
+        {
+            var pick = MockRepository.GenerateMock<IJournalPick<Double>>();
+            pick.Stub(p => p.RecordsAfter).Return(new JournalRecord<double>[] { });
+            pick.Stub(p => p.RecordsBefore).Return(new JournalRecord<double>[] { });
+
+            var wt = MockRepository.GenerateMock<IWeightingTool<double>>();
+            var interpolator = new LinearInterpolator<Double>(wt);
+
+            interpolator.Interpolate(pick, DateTime.Today);
         }
     }
 }

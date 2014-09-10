@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators.InterpolationTools;
 
@@ -14,7 +15,7 @@ namespace Saut.StateModel.Interpolators
     /// </remarks>
     public class LinearInterpolator<TValue> : IInterpolator<TValue>
     {
-        private IWeightingTool<TValue> _weightingTool;
+        private readonly IWeightingTool<TValue> _weightingTool;
         public LinearInterpolator(IWeightingTool<TValue> WeightingTool) { _weightingTool = WeightingTool; }
 
         /// <summary>Путём интерполяции получает значение свойства в произвольный момент времени.</summary>
@@ -23,7 +24,8 @@ namespace Saut.StateModel.Interpolators
         /// <returns>Значение свойства в указанное время, полученное путём интерполяции.</returns>
         public TValue Interpolate(IJournalPick<TValue> Pick, DateTime Time)
         {
-            var points = Zip(Pick).Take(2).ToArray();
+            JournalRecord<TValue>[] points = Zip(Pick).Take(2).ToArray();
+            if (points.Length < 2) throw new PropertyValueUndefinedException();
             double weight = ((Double)(Time.Ticks - points[0].Time.Ticks)) / (points[1].Time.Ticks - points[0].Time.Ticks);
             return _weightingTool.GetWeightedArithmeticMean(points[0].Value, points[1].Value, weight);
         }
@@ -31,10 +33,12 @@ namespace Saut.StateModel.Interpolators
         private static IEnumerable<JournalRecord<TValue>> Zip(IJournalPick<TValue> Pick)
         {
             var enumerators = new[] { Pick.RecordsBefore.GetEnumerator(), Pick.RecordsAfter.GetEnumerator() };
+            var hasElements = new[] { true, true };
             int i = 0;
-            while (true)
+            while (hasElements.Any(e => e))
             {
                 if (enumerators[i].MoveNext()) yield return enumerators[i].Current;
+                else hasElements[i] = false;
                 i = (i + 1) % 2;
             }
         }
