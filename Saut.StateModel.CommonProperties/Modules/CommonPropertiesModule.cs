@@ -1,11 +1,12 @@
-﻿using Geographics;
+﻿using System.Reflection;
+using Geographics;
 using Microsoft.Practices.Unity;
 using Modules;
 using Modules.Dependencies;
+using Modules.TypeRegistration;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
 using Saut.StateModel.Interpolators.InterpolationTools;
-using Saut.StateModel.StateProperties;
 
 namespace Saut.StateModel.Modules
 {
@@ -20,17 +21,16 @@ namespace Saut.StateModel.Modules
             // Интерполяторы
             Container.RegisterType<IWeightingTool<EarthPoint>, EarthPointWeightingTool>();
             Container.RegisterType<IInterpolator<EarthPoint>, LinearInterpolator<EarthPoint>>();
-
-            // Свойства
-            // TODO: ПОЧЕМУ НЕ РАБОТАЕТ ContainerControlledLifetimeManager ???
-            Container.RegisterType<IStateProperty, GpsPositionProperty>("GPS Position", new ContainerControlledLifetimeManager());
-            Container.RegisterType<IStateProperty, GpsReliabilityProperty>("GPS Reliability", new ContainerControlledLifetimeManager());
-            Container.RegisterType<IStateProperty, SpeedProperty>("Speed", new ContainerControlledLifetimeManager());
         }
 
         /// <summary>Инициализирует модуль</summary>
         /// <remarks>Здесь нужно запустить всё, что нужно запустить, создать всё, что нужно создать.</remarks>
         /// <param name="Container">Сконфигурированный контейнер приложения</param>
-        public void InitializeModule(IUnityContainer Container) { }
+        public void InitializeModule(IUnityContainer Container)
+        {
+            var enumerator = new AssemblyScanTypesEnumerator(Assembly.GetAssembly(typeof (CommonPropertiesModule)), typeof (IStateProperty));
+            var registrant = Container.Resolve<IRegistrant>("PropertyRegistrant");
+            registrant.RegisterAll(enumerator, Container);
+        }
     }
 }

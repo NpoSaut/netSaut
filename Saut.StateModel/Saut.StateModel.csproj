@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeManager.cs" />
+    <Compile Include="Exceptions\PropertyValueUndefinedException.cs" />
+    <Compile Include="Exceptions\StateModelException.cs" />
     <Compile Include="Interfaces\IDateTimeManager.cs" />
     <Compile Include="Interfaces\IInterpolator.cs" />
     <Compile Include="Interfaces\IJournal.cs" />
@@ -74,7 +76,6 @@
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
-    <Compile Include="StateModelService.cs" />
     <Compile Include="Interpolators\StepInterpolator.cs" />
   </ItemGroup>
   <ItemGroup />

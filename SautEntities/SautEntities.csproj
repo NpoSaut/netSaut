@@ -62,7 +62,6 @@
     <Compile Include="Interfaces\IRelief.cs" />
     <Compile Include="Interfaces\IRestrictionPointsProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateModel\IStateModelService.cs" />
     <Compile Include="StateModel\IStateProperty.cs" />
   </ItemGroup>
   <ItemGroup>

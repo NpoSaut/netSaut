@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Interfaces;
 
 namespace Saut.StateModel.Interpolators
@@ -13,6 +14,11 @@ namespace Saut.StateModel.Interpolators
         /// <param name="Pick">Выборка из журнала в окрестности указанного времени.</param>
         /// <param name="Time">Время.</param>
         /// <returns>Значение свойства в указанное время, полученное путём интерполяции.</returns>
-        public TValue Interpolate(IJournalPick<TValue> Pick, DateTime Time) { return Pick.RecordsBefore.First().Value; }
+        public TValue Interpolate(IJournalPick<TValue> Pick, DateTime Time)
+        {
+            JournalRecord<TValue>? lastRecord = Pick.RecordsBefore.FirstOrDefault();
+            if (lastRecord == null) throw new PropertyValueUndefinedException();
+            return lastRecord.Value.Value;
+        }
     }
 }
