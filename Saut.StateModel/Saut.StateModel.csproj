@@ -74,7 +74,6 @@
     <Compile Include="Modules\StateModelModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
-    <Compile Include="StateModelService.cs" />
     <Compile Include="Interpolators\StepInterpolator.cs" />
   </ItemGroup>
   <ItemGroup />
