@@ -7,6 +7,10 @@ namespace Saut.StateModel
     {
         /// <summary>Название свойства.</summary>
         String Name { get; }
+
+        /// <summary>Показывает, задано ли значение для свойства</summary>
+        /// <returns>True, если значение задано</returns>
+        Boolean HaveValue();
     }
 
     /// <summary>Свойство модели состояния.</summary>
@@ -30,6 +34,11 @@ namespace Saut.StateModel
         /// <param name="OnTime">Момент времени.</param>
         /// <returns>Значение свойства в указанный момент времени.</returns>
         TValue GetValue(DateTime OnTime);
+
+        /// <summary>Показывает, задано ли значение для свойства в указанный момент времени</summary>
+        /// <param name="OnTime">Момент времени</param>
+        /// <returns>True, если значение задано</returns>
+        Boolean HaveValue(DateTime OnTime);
 
         /// <summary>Устанавливает новое значение свойства.</summary>
         /// <param name="NewValue">Новое значение свойства.</param>

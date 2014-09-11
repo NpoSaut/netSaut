@@ -23,6 +23,11 @@ namespace Saut.StateModel
         /// <summary>Название свойства.</summary>
         public abstract string Name { get; }
 
+        /// <summary>Показывает, задано ли значение для свойства в указанный момент времени</summary>
+        /// <param name="OnTime">Момент времени</param>
+        /// <returns>True, если значение задано</returns>
+        public bool HaveValue(DateTime OnTime) { throw new NotImplementedException(); }
+
         /// <summary>Получает значение свойства в указанный момент времени.</summary>
         /// <param name="OnTime">Момент времени.</param>
         /// <returns>Значение свойства в указанный момент времени.</returns>
@@ -39,6 +44,10 @@ namespace Saut.StateModel
         public void UpdateValue(TValue NewValue, DateTime OnTime) { Journal.AddRecord(NewValue, OnTime); }
 
         #region Перегрузки для нежурналиуемых методов
+
+        /// <summary>Показывает, задано ли значение для свойства</summary>
+        /// <returns>True, если значение задано</returns>
+        public bool HaveValue() { return HaveValue(_timeManager.Now); }
 
         /// <summary>Получает текущее значение свойства.</summary>
         /// <returns>Значение свойства на момент запроса.</returns>
