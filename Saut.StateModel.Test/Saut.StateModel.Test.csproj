@@ -56,7 +56,7 @@
     <Compile Include="Journals\TimeSpanTailDetectPolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPickerTest.cs" />
-    <Compile Include="Interpolators\StepInterpolatorTest.cs" />
+    <Compile Include="Interpolators\StepInterpolatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
