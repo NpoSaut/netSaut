@@ -20,5 +20,11 @@ namespace Saut.StateModel.Interpolators
             if (recs.Length == 0) throw new PropertyValueUndefinedException();
             return recs[0].Value;
         }
+
+        /// <summary>Проверяет, может ли свойство быть интерполировано в заданной окрестности</summary>
+        /// <param name="Pick">Выборка из журнала в окрестности указанного времени</param>
+        /// <param name="Time">Время</param>
+        /// <returns>True, если свойство может быть интерполировано в заданной окрестности</returns>
+        public bool CanInterpolate(IJournalPick<TValue> Pick, DateTime Time) { return Pick.RecordsBefore.Any(); }
     }
 }

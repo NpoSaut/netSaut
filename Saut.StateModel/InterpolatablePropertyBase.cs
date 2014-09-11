@@ -26,7 +26,11 @@ namespace Saut.StateModel
         /// <summary>Показывает, задано ли значение для свойства в указанный момент времени</summary>
         /// <param name="OnTime">Момент времени</param>
         /// <returns>True, если значение задано</returns>
-        public bool HaveValue(DateTime OnTime) { throw new NotImplementedException(); }
+        public bool HaveValue(DateTime OnTime)
+        {
+            IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
+            return _interpolator.CanInterpolate(pick, OnTime);
+        }
 
         /// <summary>Получает значение свойства в указанный момент времени.</summary>
         /// <param name="OnTime">Момент времени.</param>
