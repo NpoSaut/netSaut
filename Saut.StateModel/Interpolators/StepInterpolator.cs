@@ -16,9 +16,9 @@ namespace Saut.StateModel.Interpolators
         /// <returns>Значение свойства в указанное время, полученное путём интерполяции.</returns>
         public TValue Interpolate(IJournalPick<TValue> Pick, DateTime Time)
         {
-            JournalRecord<TValue>? lastRecord = Pick.RecordsBefore.FirstOrDefault();
-            if (lastRecord == null) throw new PropertyValueUndefinedException();
-            return lastRecord.Value.Value;
+            JournalRecord<TValue>[] recs = Pick.RecordsBefore.Take(1).ToArray();
+            if (recs.Length == 0) throw new PropertyValueUndefinedException();
+            return recs[0].Value;
         }
     }
 }
