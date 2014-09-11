@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Saut.StateModel.Interfaces;
+using Saut.StateModel.Obsoleting;
 
 namespace Saut.StateModel.Test
 {
@@ -9,9 +10,14 @@ namespace Saut.StateModel.Test
     {
         protected abstract TValue TestValue { get; }
 
-        protected abstract InterpolatablePropertyBase<TValue> GetInstance(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory, IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker);
+        protected abstract InterpolatablePropertyBase<TValue> GetInstance(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory,
+                                                                          IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker,
+                                                                          IObsoletePolicyProvider ObsoletePolicyProvider);
 
-        private InterpolatablePropertyBase<TValue> GetInstance(TestSuit ts) { return GetInstance(ts.TimeManager, ts.JournalFactory, ts.Interpolator, ts.Picker); }
+        private InterpolatablePropertyBase<TValue> GetInstance(TestSuit ts)
+        {
+            return GetInstance(ts.TimeManager, ts.JournalFactory, ts.Interpolator, ts.Picker, ts.ObsoletePolicyProvider);
+        }
 
         [Test]
         public void TestUpdateCurrentValue()
@@ -74,6 +80,7 @@ namespace Saut.StateModel.Test
                 JournalFactory = MockRepository.GenerateMock<IJournalFactory<TValue>>();
                 Interpolator = MockRepository.GenerateMock<IInterpolator<TValue>>();
                 Picker = MockRepository.GenerateMock<IRecordPicker>();
+                ObsoletePolicyProvider = new TestObsoletePolicyProvider();
 
                 TimeManager.Stub(m => m.Now).Return(t0);
                 JournalFactory.Stub(jf => jf.GetJournal()).Return(JournalMock);
@@ -84,31 +91,16 @@ namespace Saut.StateModel.Test
             public IJournalFactory<TValue> JournalFactory { get; private set; }
             public IInterpolator<TValue> Interpolator { get; private set; }
             public IRecordPicker Picker { get; private set; }
-        }
-    }
+            public IObsoletePolicyProvider ObsoletePolicyProvider { get; private set; }
 
-    [TestFixture]
-    public class InterpolatablePropertyBaseTests : InterpolatablePropertyTestsBase<int>
-    {
-        protected override int TestValue
-        {
-            get { return 17; }
-        }
-
-        protected override InterpolatablePropertyBase<int> GetInstance(IDateTimeManager TimeManager, IJournalFactory<int> JournalFactory, IInterpolator<int> Interpolator, IRecordPicker RecordPicker)
-        {
-            return new MyProperty(TimeManager, JournalFactory, Interpolator, RecordPicker);
-        }
-
-        private class MyProperty : InterpolatablePropertyBase<int>
-        {
-            public MyProperty(IDateTimeManager TimeManager, IJournalFactory<int> JournalFactory, IInterpolator<int> Interpolator, IRecordPicker RecordPicker)
-                : base(TimeManager, JournalFactory, Interpolator, RecordPicker) { }
-
-            /// <summary>Название свойства.</summary>
-            public override string Name
+            private class TestObsoletePolicy : IObsoletePolicy
             {
-                get { return "My Test Property"; }
+                public IJournalPick<TValue1> DecoratePick<TValue1>(IJournalPick<TValue1> Pick, DateTime Time) { return Pick; }
+            }
+
+            private class TestObsoletePolicyProvider : IObsoletePolicyProvider
+            {
+                public IObsoletePolicy GetObsoletePolicy(IStateProperty Property) { return new TestObsoletePolicy(); }
             }
         }
     }

@@ -1,23 +1,28 @@
 ﻿using System;
 using Saut.StateModel.Interfaces;
+using Saut.StateModel.Obsoleting;
 
 namespace Saut.StateModel
 {
     /// <summary>Интерполируемое журналируемое свойство состояния.</summary>
     /// <typeparam name="TValue">Тип значения свойства.</typeparam>
+    [ObsoleteTimeout(2000)]
     public abstract class InterpolatablePropertyBase<TValue> : IJournaledStateProperty<TValue>
     {
         protected readonly IJournal<TValue> Journal;
         private readonly IInterpolator<TValue> _interpolator;
+        private readonly IObsoletePolicy _obsoletePolicy;
         private readonly IRecordPicker _recordPicker;
         private readonly IDateTimeManager _timeManager;
 
-        public InterpolatablePropertyBase(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory, IInterpolator<TValue> Interpolator, IRecordPicker RecordPicker)
+        public InterpolatablePropertyBase(IDateTimeManager TimeManager, IJournalFactory<TValue> JournalFactory, IInterpolator<TValue> Interpolator,
+                                          IRecordPicker RecordPicker, IObsoletePolicyProvider ObsoletePolicyProvider)
         {
             _timeManager = TimeManager;
             _interpolator = Interpolator;
             _recordPicker = RecordPicker;
             Journal = JournalFactory.GetJournal();
+            _obsoletePolicy = ObsoletePolicyProvider.GetObsoletePolicy(this);
         }
 
         /// <summary>Название свойства.</summary>
@@ -29,6 +34,7 @@ namespace Saut.StateModel
         public bool HaveValue(DateTime OnTime)
         {
             IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
+            pick = _obsoletePolicy.DecoratePick(pick, OnTime);
             return _interpolator.CanInterpolate(pick, OnTime);
         }
 
@@ -38,6 +44,7 @@ namespace Saut.StateModel
         public TValue GetValue(DateTime OnTime)
         {
             IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
+            pick = _obsoletePolicy.DecoratePick(pick, OnTime);
             TValue value = _interpolator.Interpolate(pick, OnTime);
             return value;
         }
