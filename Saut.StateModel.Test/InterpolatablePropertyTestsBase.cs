@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Obsoleting;
 
@@ -60,6 +61,9 @@ namespace Saut.StateModel.Test
             ts.Interpolator
               .Expect(i => i.Interpolate(pick, probeTime))
               .Return(TestValue);
+            ts.Interpolator
+              .Expect(i => i.CanInterpolate(pick, probeTime))
+              .Return(true);
 
             InterpolatablePropertyBase<TValue> property = GetInstance(ts);
             TValue val = property.GetValue(probeTime);
@@ -67,6 +71,26 @@ namespace Saut.StateModel.Test
             ts.Picker.VerifyAllExpectations();
             ts.Interpolator.VerifyAllExpectations();
             Assert.AreEqual(TestValue, val);
+        }
+
+        [Test, Description("ѕровер€ет, что при попытке получить устаревшее значение свойства будет выдано соответствующее исключение")]
+        [ExpectedException(typeof (PropertyValueUndefinedException))]
+        public void TestGetObsoleteValue()
+        {
+            var ts = new TestSuit();    
+
+            DateTime probeTime = ts.TimeManager.Now.AddSeconds(-15);
+
+            var pick = MockRepository.GenerateMock<IJournalPick<TValue>>();
+            ts.Picker
+              .Expect(p => p.PickRecords(ts.JournalMock, probeTime))
+              .Return(pick);
+            ts.Interpolator
+              .Expect(i => i.CanInterpolate(pick, probeTime))
+              .Return(false);
+
+            InterpolatablePropertyBase<TValue> property = GetInstance(ts);
+            property.GetValue(probeTime);
         }
 
         protected class TestSuit

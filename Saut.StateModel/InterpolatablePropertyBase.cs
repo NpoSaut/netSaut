@@ -1,4 +1,5 @@
 ﻿using System;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Interfaces;
 using Saut.StateModel.Obsoleting;
 
@@ -33,9 +34,8 @@ namespace Saut.StateModel
         /// <returns>True, если значение задано</returns>
         public bool HaveValue(DateTime OnTime)
         {
-            IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
-            pick = _obsoletePolicy.DecoratePick(pick, OnTime);
-            return _interpolator.CanInterpolate(pick, OnTime);
+            IJournalPick<TValue> pick;
+            return HaveValue(OnTime, out pick);
         }
 
         /// <summary>Получает значение свойства в указанный момент времени.</summary>
@@ -43,8 +43,8 @@ namespace Saut.StateModel
         /// <returns>Значение свойства в указанный момент времени.</returns>
         public TValue GetValue(DateTime OnTime)
         {
-            IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
-            pick = _obsoletePolicy.DecoratePick(pick, OnTime);
+            IJournalPick<TValue> pick;
+            if (!HaveValue(OnTime, out pick)) throw new PropertyValueUndefinedException(this, OnTime);
             TValue value = _interpolator.Interpolate(pick, OnTime);
             return value;
         }
@@ -69,5 +69,22 @@ namespace Saut.StateModel
         public void UpdateValue(TValue NewValue) { UpdateValue(NewValue, _timeManager.Now); }
 
         #endregion
+
+        /// <summary>
+        ///     Показывает, задано ли значение для свойства в указанный момент времени и возвращает созданную при этом выборку
+        ///     актуальных элементов из журнала
+        /// </summary>
+        /// <param name="OnTime">Момент времени</param>
+        /// <param name="DecoratedPick">Сюда выводится выборка из журнала, содержащая только актуальные элементы</param>
+        /// <returns>True, если значение задано</returns>
+        private bool HaveValue(DateTime OnTime, out IJournalPick<TValue> DecoratedPick)
+        {
+            IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
+            DecoratedPick = _obsoletePolicy.DecoratePick(pick, OnTime);
+            return _interpolator.CanInterpolate(pick, OnTime);
+        }
+
+        /// <summary>Возвращает строку, которая представляет текущий объект.</summary>
+        public override string ToString() { return string.Format("\"{0}\"", Name); }
     }
 }
