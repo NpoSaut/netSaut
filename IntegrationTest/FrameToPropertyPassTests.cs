@@ -4,6 +4,7 @@ using System.Linq;
 using BlokFrames;
 using Communications;
 using Communications.Can;
+using Geographics;
 using Microsoft.Practices.Unity;
 using Modules;
 using NUnit.Framework;
@@ -77,6 +78,24 @@ namespace IntegrationTest
             _bootstrapper.Initialize();
 
             _bootstrapper.Run();
+        }
+
+        [Test, Description("Проверяет линейную интерполяцию GPS-позиции")]
+        public void PositionProcessingTest()
+        {
+            var positionProperty = _bootstrapper.Container.Resolve<GpsPositionProperty>();
+
+            AssertPosition(new EarthPoint(60.0, 50.0), positionProperty.GetValue(_t0.AddSeconds(0.0)), "Не верно обработано значение {0} в ключевой точке");
+            AssertPosition(new EarthPoint(60.0, 50.0), positionProperty.GetValue(_t0.AddSeconds(0.5)), "Не верно обработано значение {0} в ключевой точке");
+            AssertPosition(new EarthPoint(70.0, 40.0), positionProperty.GetValue(_t0.AddSeconds(1.0)), "Не верно обработано значение {0} в ключевой точке");
+            AssertPosition(new EarthPoint(60.0, 50.0), positionProperty.GetValue(_t0.AddSeconds(0.3)), "Не верно обработано значение {0} в промежуточной точке");
+            AssertPosition(new EarthPoint(64.0, 46.0), positionProperty.GetValue(_t0.AddSeconds(0.7)), "Не верно обработано значение {0} в промежуточной точке");
+        }
+
+        private void AssertPosition(EarthPoint ExpectedPosition, EarthPoint ActualPosition, String ErrorMessage)
+        {
+            Assert.AreEqual(ExpectedPosition.Latitude.Value, ActualPosition.Latitude.Value, 0.0001, string.Format(ErrorMessage, "широты"));
+            Assert.AreEqual(ExpectedPosition.Longitude.Value, ActualPosition.Longitude.Value, 0.0001, string.Format(ErrorMessage, "долготы"));
         }
 
         [Test, Description("Проверяет ступенчатую интерполяцию достоверности GPS")]
