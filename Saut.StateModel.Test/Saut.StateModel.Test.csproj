@@ -58,7 +58,7 @@
     <Compile Include="Obsoleting\TimeoutAttributeObsoletePolicyProviderTests.cs" />
     <Compile Include="Obsoleting\TimeoutObsoletePolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordPickerTest.cs" />
+    <Compile Include="RecordPickerTests.cs" />
     <Compile Include="Interpolators\StepInterpolatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
