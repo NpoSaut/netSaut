@@ -60,9 +60,9 @@ namespace IntegrationTest
                     new MmAltLongFrame { Time = _t0.AddSeconds(0.0), Latitude = 60.0, Longitude = 50.0, Reliable = false },
                     new MmAltLongFrame { Time = _t0.AddSeconds(0.5), Latitude = 60.0, Longitude = 50.0, Reliable = true },
                     new MmAltLongFrame { Time = _t0.AddSeconds(1.0), Latitude = 70.0, Longitude = 40.0, Reliable = true },
-                    new IpdState { Time = _t0.AddSeconds(0.2), Speed = 30 },
-                    new IpdState { Time = _t0.AddSeconds(0.7), Speed = 35 },
-                    new IpdState { Time = _t0.AddSeconds(1.2), Speed = 45 }
+                    new IpdState { Time = _t0.AddSeconds(0.2), Speed = 30, FrameHalfset = HalfsetKind.SetA },
+                    new IpdState { Time = _t0.AddSeconds(0.7), Speed = 35, FrameHalfset = HalfsetKind.SetA },
+                    new IpdState { Time = _t0.AddSeconds(1.2), Speed = 45, FrameHalfset = HalfsetKind.SetA }
                 }.OrderBy(m => m.Time).Select(bf => bf.GetCanFrame());
 
             _bootstrapper = new MyTestBootstrapper(
