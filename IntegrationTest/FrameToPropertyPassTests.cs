@@ -9,6 +9,7 @@ using Modules;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Saut.Communication.Modules;
+using Saut.StateModel.Exceptions;
 using Saut.StateModel.Modules;
 using Saut.StateModel.StateProperties;
 
@@ -17,7 +18,7 @@ namespace IntegrationTest
     [TestFixture]
     public class FrameToPropertyPassTests
     {
-        private MyTestBootstrapper _bootstrapper;
+        private readonly MyTestBootstrapper _bootstrapper;
         private DateTime _t0;
 
         private class MyTestBootstrapper : BootstrapperBase
@@ -76,6 +77,27 @@ namespace IntegrationTest
             _bootstrapper.Initialize();
 
             _bootstrapper.Run();
+        }
+
+        [Test, Description("Проверяет ступенчатую интерполяцию достоверности GPS")]
+        public void ReliabilityProcessingTest()
+        {
+            var reliabilityProperty = _bootstrapper.Container.Resolve<GpsReliabilityProperty>();
+            Assert.AreEqual(false, reliabilityProperty.GetValue(_t0.AddSeconds(0.0)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(true, reliabilityProperty.GetValue(_t0.AddSeconds(0.5)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(true, reliabilityProperty.GetValue(_t0.AddSeconds(1.0)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(false, reliabilityProperty.GetValue(_t0.AddSeconds(0.2)), "Значение не верно интерполировалось");
+            Assert.AreEqual(true, reliabilityProperty.GetValue(_t0.AddSeconds(1.2)), "Значение не верно интерполировалось");
+        }
+
+        [Test, Description("Проверяет возникновение исключения при попытке получить значение скорости вне диапазона актуальности")]
+        [ExpectedException(typeof (PropertyValueUndefinedException))]
+        public void SpeedObsoletingTest()
+        {
+            DateTime t = _t0.AddSeconds(10.0);
+            var speedProperty = _bootstrapper.Container.Resolve<SpeedProperty>();
+            Assert.AreEqual(false, speedProperty.HaveValue(t));
+            speedProperty.GetValue(t);
         }
 
         [Test, Description("Проверяет линейную интерполяцию скорости")]
