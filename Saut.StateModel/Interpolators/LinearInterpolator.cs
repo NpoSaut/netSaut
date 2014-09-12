@@ -30,6 +30,16 @@ namespace Saut.StateModel.Interpolators
             return _weightingTool.GetWeightedArithmeticMean(points[0].Value, points[1].Value, weight);
         }
 
+        /// <summary>Проверяет, может ли свойство быть интерполировано в заданной окрестности</summary>
+        /// <param name="Pick">Выборка из журнала в окрестности указанного времени</param>
+        /// <param name="Time">Время</param>
+        /// <returns>True, если свойство может быть интерполировано в заданной окрестности</returns>
+        public bool CanInterpolate(IJournalPick<TValue> Pick, DateTime Time)
+        {
+            JournalRecord<TValue>[] points = Zip(Pick).Take(2).ToArray();
+            return points.Length >= 2;
+        }
+
         private static IEnumerable<JournalRecord<TValue>> Zip(IJournalPick<TValue> Pick)
         {
             var enumerators = new[] { Pick.RecordsBefore.GetEnumerator(), Pick.RecordsAfter.GetEnumerator() };

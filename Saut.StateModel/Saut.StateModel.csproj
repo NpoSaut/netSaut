@@ -74,6 +74,12 @@
     <Compile Include="Journals\TimeCuttedConcurrentJournalFactory.cs" />
     <Compile Include="Journals\TimeSpanTailDetectPolicy.cs" />
     <Compile Include="Modules\StateModelModule.cs" />
+    <Compile Include="Obsoleting\IObsoletePolicy.cs" />
+    <Compile Include="Obsoleting\IObsoletePolicyProvider.cs" />
+    <Compile Include="Obsoleting\ObsoleteTimeoutAttribute.cs" />
+    <Compile Include="Obsoleting\PredicateJournalPickDecorator.cs" />
+    <Compile Include="Obsoleting\TimeoutAttributeObsoletePolicyProvider.cs" />
+    <Compile Include="Obsoleting\TimeoutObsoletePolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordPicker.cs" />
     <Compile Include="Interpolators\StepInterpolator.cs" />

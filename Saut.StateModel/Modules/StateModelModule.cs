@@ -7,6 +7,7 @@ using Saut.StateModel.Interfaces;
 using Saut.StateModel.Interpolators;
 using Saut.StateModel.Interpolators.InterpolationTools;
 using Saut.StateModel.Journals;
+using Saut.StateModel.Obsoleting;
 
 namespace Saut.StateModel.Modules
 {
@@ -32,6 +33,7 @@ namespace Saut.StateModel.Modules
             // Разное
             Container.RegisterType<IDateTimeManager, DateTimeManager>();
             Container.RegisterType<IRegistrant, SingletonRegistrant>("PropertyRegistrant");
+            Container.RegisterType<IObsoletePolicyProvider, TimeoutAttributeObsoletePolicyProvider>();
         }
 
         /// <summary>Инициализирует модуль.</summary>
