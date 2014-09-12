@@ -81,7 +81,7 @@ namespace Saut.StateModel
         {
             IJournalPick<TValue> pick = _recordPicker.PickRecords(Journal, OnTime);
             DecoratedPick = _obsoletePolicy.DecoratePick(pick, OnTime);
-            return _interpolator.CanInterpolate(pick, OnTime);
+            return _interpolator.CanInterpolate(DecoratedPick, OnTime);
         }
 
         /// <summary>Возвращает строку, которая представляет текущий объект.</summary>
