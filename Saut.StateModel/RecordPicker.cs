@@ -17,7 +17,7 @@ namespace Saut.StateModel
             return
                 new JournalPick<TValue>(
                     Journal.Records.TakeWhile(r => r.Time > Time).Reverse(),
-                    Journal.Records.SkipWhile(r => r.Time >= Time));
+                    Journal.Records.SkipWhile(r => r.Time > Time));
         }
 
         public class JournalPick<TValue> : IJournalPick<TValue>
