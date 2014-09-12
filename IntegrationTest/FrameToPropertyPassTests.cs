@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BlokFrames;
 using Communications;
 using Communications.Can;
-using Geographics;
 using Microsoft.Practices.Unity;
 using Modules;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Saut.Communication.Modules;
-using Saut.StateModel;
 using Saut.StateModel.Modules;
 using Saut.StateModel.StateProperties;
 
@@ -20,6 +17,9 @@ namespace IntegrationTest
     [TestFixture]
     public class FrameToPropertyPassTests
     {
+        private MyTestBootstrapper _bootstrapper;
+        private DateTime _t0;
+
         private class MyTestBootstrapper : BootstrapperBase
         {
             private readonly Func<ISocketSource<ICanSocket>> _socketFactory;
@@ -49,22 +49,21 @@ namespace IntegrationTest
             return socketMock;
         }
 
-        [Test]
-        public void PassFrameToPropertyTest()
+        public FrameToPropertyPassTests()
         {
-            var t0 = DateTime.Today;
+            _t0 = DateTime.Today;
             IEnumerable<CanFrame> frames =
                 new BlokFrame[]
                 {
-                    new MmAltLongFrame { Time = t0.AddSeconds(0.0), Latitude = 60.0, Longitude = 50.0, Reliable = false },
-                    new MmAltLongFrame { Time = t0.AddSeconds(0.5), Latitude = 60.0, Longitude = 50.0, Reliable = true },
-                    new MmAltLongFrame { Time = t0.AddSeconds(1.0), Latitude = 70.0, Longitude = 40.0, Reliable = true },
-                    new IpdState { Time = t0.AddSeconds(0.2), Speed = 30 },
-                    new IpdState { Time = t0.AddSeconds(0.7), Speed = 35 },
-                    new IpdState { Time = t0.AddSeconds(1.2), Speed = 45 },
+                    new MmAltLongFrame { Time = _t0.AddSeconds(0.0), Latitude = 60.0, Longitude = 50.0, Reliable = false },
+                    new MmAltLongFrame { Time = _t0.AddSeconds(0.5), Latitude = 60.0, Longitude = 50.0, Reliable = true },
+                    new MmAltLongFrame { Time = _t0.AddSeconds(1.0), Latitude = 70.0, Longitude = 40.0, Reliable = true },
+                    new IpdState { Time = _t0.AddSeconds(0.2), Speed = 30 },
+                    new IpdState { Time = _t0.AddSeconds(0.7), Speed = 35 },
+                    new IpdState { Time = _t0.AddSeconds(1.2), Speed = 45 }
                 }.OrderBy(m => m.Time).Select(bf => bf.GetCanFrame());
 
-            var bootstrapper = new MyTestBootstrapper(
+            _bootstrapper = new MyTestBootstrapper(
                 () =>
                 {
                     var socketSourceMock = MockRepository.GenerateMock<ISocketSource<ICanSocket>>();
@@ -74,26 +73,41 @@ namespace IntegrationTest
                         .Return(GetSocketMock(frames));
                     return socketSourceMock;
                 });
-            bootstrapper.Initialize();
+            _bootstrapper.Initialize();
 
-            bootstrapper.Run();
+            _bootstrapper.Run();
+        }
 
-            var speedProperty = bootstrapper.Container.Resolve<SpeedProperty>();
-            var positionProperty = bootstrapper.Container.Resolve<GpsPositionProperty>();
-            var reliabilityProperty = bootstrapper.Container.Resolve<GpsReliabilityProperty>();
+        [Test, Description("Проверяет линейную интерполяцию скорости")]
+        public void SpeedProcessingTest()
+        {
+            var speedProperty = _bootstrapper.Container.Resolve<SpeedProperty>();
+            Assert.AreEqual(30, speedProperty.GetValue(_t0.AddSeconds(0.2)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(35, speedProperty.GetValue(_t0.AddSeconds(0.7)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(45, speedProperty.GetValue(_t0.AddSeconds(1.2)), "Не верно обработано значение в ключевой точке");
+            Assert.AreEqual(28, speedProperty.GetValue(_t0.AddSeconds(0.0)), "Значение не верно экстраполировалось");
+            Assert.AreEqual(41, speedProperty.GetValue(_t0.AddSeconds(1.0)), "Значение не верно интерполировалось");
+        }
 
-            var states = Enumerable.Range(0, 15)
-                             .Select(i => t0.AddMilliseconds(i * 100))
-                             .Select(t =>
-                                     new {
-                                         Speed = speedProperty.GetValue(t),
-                                         Position = positionProperty.GetValue(t),
-                                         Reliability = reliabilityProperty.GetValue(t)
-                                     })
-                             .ToList();
+        /*[Test]
+        public void PassFrameToPropertyTest()
+        {
+            var positionProperty = _bootstrapper.Container.Resolve<GpsPositionProperty>();
+            var reliabilityProperty = _bootstrapper.Container.Resolve<GpsReliabilityProperty>();
+
+            var states = Enumerable.Range(0, 25)
+                                   .Select(i => _t0.AddMilliseconds(i * 100))
+                                   .Select(t =>
+                                           new
+                                           {
+                                               Speed = speedProperty.HaveValue(t) ? speedProperty.GetValue(t).ToString() : "undefined",
+                                               Position = positionProperty.HaveValue(t) ? positionProperty.GetValue(t).ToString() : "undefined",
+                                               Reliability = reliabilityProperty.HaveValue(t) ? reliabilityProperty.GetValue(t).ToString() : "undefined"
+                                           })
+                                   .ToList();
 
             //var bootstrapperThread = new Thread(bootstrapper.Run);
             //bootstrapperThread.Start();
-        }
+        }*/
     }
 }
