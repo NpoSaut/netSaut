@@ -1,0 +1,10 @@
+﻿<Window x:Class="PropertyVisualizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:graphVisualizing="clr-namespace:GraphVisualizing;assembly=GraphVisualizing"
+        xmlns:controls="clr-namespace:GraphVisualizing.Controls;assembly=GraphVisualizing"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <controls:NumericGraphView Name="GraphView" Loaded="GraphView_OnLoaded" />
+    </Grid>
+</Window>

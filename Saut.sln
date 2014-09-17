@@ -39,6 +39,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saut.Communication.BlokFram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTest", "IntegrationTest\IntegrationTest.csproj", "{1174FEB9-CA4A-4EE8-8C29-F946246DA415}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphVisualizing", "Visualisations\GraphVisualizing\GraphVisualizing.csproj", "{513CABE5-714A-4313-9D73-A88D1BC88D5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demos", "Demos", "{8B424BBD-6B86-42C3-AE17-35E89CA5C290}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyVisualizer", "PropertyVisualizer\PropertyVisualizer.csproj", "{DEF8AACF-D375-4122-A6CA-27373F8C4B5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +119,14 @@ Global
 		{1174FEB9-CA4A-4EE8-8C29-F946246DA415}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1174FEB9-CA4A-4EE8-8C29-F946246DA415}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1174FEB9-CA4A-4EE8-8C29-F946246DA415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{513CABE5-714A-4313-9D73-A88D1BC88D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{513CABE5-714A-4313-9D73-A88D1BC88D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{513CABE5-714A-4313-9D73-A88D1BC88D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{513CABE5-714A-4313-9D73-A88D1BC88D5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF8AACF-D375-4122-A6CA-27373F8C4B5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF8AACF-D375-4122-A6CA-27373F8C4B5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF8AACF-D375-4122-A6CA-27373F8C4B5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF8AACF-D375-4122-A6CA-27373F8C4B5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,5 +136,6 @@ Global
 		{B21396AD-6DD4-4E5A-A8C7-2BFFE8DAFEE6} = {D5ECCE9D-395B-489B-B854-CD60D762B543}
 		{D6B9D8FF-66C3-4411-88D3-524A4A19DC03} = {D5ECCE9D-395B-489B-B854-CD60D762B543}
 		{1174FEB9-CA4A-4EE8-8C29-F946246DA415} = {D5ECCE9D-395B-489B-B854-CD60D762B543}
+		{DEF8AACF-D375-4122-A6CA-27373F8C4B5A} = {8B424BBD-6B86-42C3-AE17-35E89CA5C290}
 	EndGlobalSection
 EndGlobal

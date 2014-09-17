@@ -4,3 +4,6 @@
 [submodule "CanLib"]
 	path = CanLib
 	url = ../netCanLib.git
+[submodule "Visualisations"]
+	path = Visualisations
+	url = ../netVisualisations.git
