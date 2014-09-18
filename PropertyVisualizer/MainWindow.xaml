@@ -5,6 +5,6 @@
         xmlns:controls="clr-namespace:GraphVisualizing.Controls;assembly=GraphVisualizing"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <controls:NumericGraphView Name="GraphView" Loaded="GraphView_OnLoaded" />
+        <controls:TimeGraphView Name="GraphView" Loaded="GraphView_OnLoaded" />
     </Grid>
 </Window>

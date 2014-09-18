@@ -34,6 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -67,6 +79,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyTestBootstrapper.cs" />
+    <Compile Include="MyTestSocketSourceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +98,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -94,6 +109,38 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CanLib\BlokFrames\BlokFrames.csproj">
+      <Project>{405B0F26-46EE-4D8C-9267-652F7D4C4AB0}</Project>
+      <Name>BlokFrames</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CanLib\Communications\Communications.csproj">
+      <Project>{6C5B1ECA-5187-4F63-8CF1-C17DF50D0F65}</Project>
+      <Name>Communications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Modules.csproj">
+      <Project>{D6DB682E-8412-40FA-8E48-524B3B48FA37}</Project>
+      <Name>Modules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Saut.Communication.BlokFrameProcessors\Saut.Communication.BlokFrameProcessors.csproj">
+      <Project>{8A12480F-25A1-47F5-8100-68E4AEBDE07C}</Project>
+      <Name>Saut.Communication.BlokFrameProcessors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Saut.Communication\Saut.Communication.csproj">
+      <Project>{5B76F769-B180-4E2A-8C84-F2FFD6152D2C}</Project>
+      <Name>Saut.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Saut.StateModel.CommonProperties\Saut.StateModel.CommonProperties.csproj">
+      <Project>{4ED0E19F-2D36-403A-8A28-43123795BAD0}</Project>
+      <Name>Saut.StateModel.CommonProperties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Saut.StateModel\Saut.StateModel.csproj">
+      <Project>{F055239B-2E58-4E1E-9FBF-DC6F7026828A}</Project>
+      <Name>Saut.StateModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SautEntities\SautEntities.csproj">
+      <Project>{8B1003A6-A249-47E3-AD60-5318185701C8}</Project>
+      <Name>SautEntities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Visualisations\GraphVisualizing\GraphVisualizing.csproj">
       <Project>{513CABE5-714A-4313-9D73-A88D1BC88D5C}</Project>
       <Name>GraphVisualizing</Name>
