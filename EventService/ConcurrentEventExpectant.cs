@@ -6,6 +6,9 @@ using Saut.EventServices;
 
 namespace EventService
 {
+    /// <summary>Ожидатель событий, работающий через буфер в <see cref="ConcurrentQueue{T}" />
+    /// </summary>
+    /// <typeparam name="TEvent">Тип ожидаемого события</typeparam>
     public class ConcurrentEventExpectant<TEvent> : IConsumableEventExpectant<TEvent> where TEvent : Event
     {
         private readonly ConcurrentQueue<TEvent> _eventsQueue = new ConcurrentQueue<TEvent>();
@@ -23,7 +26,10 @@ namespace EventService
         /// <summary>Блокирует выполнение до наступления указанного события (не более указанного таймаута)</summary>
         /// <param name="Timeout"></param>
         /// <exception cref="TimeoutException">Вышло время ожидания события</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="Timeout"/> является отрицательным числом отличный значение -1 миллисекунд, которое представляет неограниченное время ожидания - или - время ожидания больше MaxValue.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="Timeout" /> является отрицательным числом отличный
+        ///     значение -1 миллисекунд, которое представляет неограниченное время ожидания - или - время ожидания больше MaxValue.
+        /// </exception>
         /// <returns>Первое наступившее события</returns>
         public TEvent Expect(TimeSpan Timeout)
         {
